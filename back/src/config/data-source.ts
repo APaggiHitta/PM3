@@ -17,3 +17,7 @@ export const AppDataSource = new DataSource({
   subscribers: [],
   migrations: [],
 });
+
+export const UserModel = AppDataSource.getRepository(User);
+export const TurnModel = AppDataSource.getRepository(Turn);
+export const CredentialModel = AppDataSource.getRepository(Credential);

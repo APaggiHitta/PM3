@@ -2,10 +2,11 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+
+import { User } from "./User";
 
 @Entity({
   name: "credentials",
@@ -19,4 +20,8 @@ export class Credential {
 
   @Column()
   password: string;
+
+  @OneToOne(() => User, (user) => user.credential)
+  @JoinColumn()
+  user: User;
 }

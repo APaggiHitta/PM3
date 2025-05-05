@@ -4,6 +4,6 @@ interface IUser {
   email: string;
   birthdate: Date;
   nDni: number;
-  credentialsId: number;
+  // credentialsId: number;
 }
 export default IUser;

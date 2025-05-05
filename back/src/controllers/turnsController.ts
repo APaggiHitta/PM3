@@ -5,10 +5,11 @@ import {
   createTurnService,
   cancelTurnService,
 } from "../services/turnsService";
-import ITurn from "../interfaces/ITurn";
+
+import { Turn } from "../entities/Turn";
 
 export const getTurnsController = async (req: Request, res: Response) => {
-  const turns: ITurn[] = await getTurnsService();
+  const turns: Turn[] = await getTurnsService();
   res.status(200).json(turns);
 };
 
@@ -31,13 +32,7 @@ export const getTurnsByIdController = async (req: Request, res: Response) => {
 };
 
 export const createTurnController = async (req: Request, res: Response) => {
-  const { date, time, userId, status } = req.body;
-  const newTurn: ITurn = await createTurnService({
-    date,
-    time,
-    userId,
-    status,
-  });
+  const newTurn: Turn = await createTurnService(req.body);
   res.status(201).json(newTurn);
 };
 

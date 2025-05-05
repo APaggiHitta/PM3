@@ -3,7 +3,7 @@ import {
   getUsersController,
   getUserByIdController,
   createUserController,
-  userLoginController,
+  // userLoginController,
 } from "../controllers/usersController";
 
 const usersRouter: Router = Router();
@@ -11,6 +11,6 @@ const usersRouter: Router = Router();
 usersRouter.get("/", getUsersController);
 usersRouter.get("/:id", getUserByIdController);
 usersRouter.post("/register", createUserController);
-usersRouter.post("/login", userLoginController);
+// usersRouter.post("/login", userLoginController);
 
 export default usersRouter;

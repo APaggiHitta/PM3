@@ -5,10 +5,11 @@ import {
   getUsersByIdService,
   createUserService,
 } from "../services/usersService";
-import IUser from "../interfaces/IUser";
+
+import { User } from "../entities/User";
 
 export const getUsersController = async (req: Request, res: Response) => {
-  const users: IUser[] = await getUsersService();
+  const users: User[] = await getUsersService();
   res.status(200).json(users);
 };
 
@@ -31,18 +32,13 @@ export const getUserByIdController = async (req: Request, res: Response) => {
 };
 
 export const createUserController = async (req: Request, res: Response) => {
-  const { name, email, birthdate, nDni } = req.body;
-  const newUser: IUser = await createUserService({
-    name,
-    email,
-    birthdate,
-    nDni,
-  });
+  // const { name, email, birthdate, nDni, username, password } = req.body;
+  const newUser: User = await createUserService(req.body);
   res.status(201).json(newUser);
 };
 
-export const userLoginController = async (req: Request, res: Response) => {
-  res
-    .status(201)
-    .json({ message: "Ejecutando controlador para loguear usuario" });
-};
+// export const userLoginController = async (req: Request, res: Response) => {
+//   res
+//     .status(201)
+//     .json({ message: "Ejecutando controlador para loguear usuario" });
+// };

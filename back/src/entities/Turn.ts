@@ -1,11 +1,5 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "./User";
 
 @Entity({
   name: "turns",
@@ -19,11 +13,12 @@ export class Turn {
   })
   date: Date;
 
-  @Column({
-    type: "time",
-  })
+  @Column()
   time: string;
 
   @Column()
   status: string;
+
+  @ManyToOne(() => User, (user) => user.turns)
+  user: User;
 }
