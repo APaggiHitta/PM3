@@ -2,9 +2,9 @@ import { Router } from "express";
 import turnsRouter from "./turnsRouter";
 import usersRouter from "./usersRouter";
 
-const router: Router = Router();
+const indexRouter: Router = Router();
 
-router.use("/turns", turnsRouter);
-router.use("/users", usersRouter);
+indexRouter.use("/turns", turnsRouter);
+indexRouter.use("/users", usersRouter);
 
-export default router;
+export default indexRouter;

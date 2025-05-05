@@ -1,10 +1,3 @@
-//GET /users => Obtiene todos los usuarios
-//GET /users/:id => Obtiene un usuario por id
-//POST /users/register => Crea un nuevo usuario
-//POST /users/login => Inicia sesion de un usuario
-
-// Los controladores de cada ruta solo enviaran un mensaje
-
 import { Router } from "express";
 import {
   getUsersController,

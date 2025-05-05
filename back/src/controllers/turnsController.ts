@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 
 export const getTurnsController = async (req: Request, res: Response) => {
-  res
-    .status(200)
-    .json({ message: "Ejecutando controlador para obtener todos los turnos" });
+  // res
+  //   .status(200)
+  //   .json({ message: "Ejecutando controlador para obtener todos los turnos" });
+  res.send("Ejecutando controlador para obtener todos los turnos");
 };
 
 export const getTurnsByIdController = async (req: Request, res: Response) => {
