@@ -35,7 +35,7 @@ export const createTurnService = async (data: TurnDto) => {
   const turn = TurnModel.create({
     date: new Date(data.date),
     time: data.time,
-    status: data.status,
+    status: "active",
     user: user,
   });
 
@@ -56,18 +56,3 @@ export const cancelTurnService = async (id: number): Promise<Turn> => {
   turn.status = "cancelled";
   return await TurnModel.save(turn);
 };
-
-// export const cancelTurnService = async (
-//   turnId: number
-// ): Promise<ITurn | undefined> => {
-//   const turnIndex = turns.findIndex((t) => t.id === turnId);
-
-//   if (turnIndex === -1) {
-//     return undefined;
-//   }
-
-//   // Si el turno existe, lo actualizamos
-//   turns[turnIndex].status = "cancelled";
-
-//   return turns[turnIndex];
-// };

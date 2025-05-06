@@ -33,7 +33,7 @@ export const getTurnsByIdController = async (req: Request, res: Response) => {
 
 export const createTurnController = async (req: Request, res: Response) => {
   const newTurn: Turn = await createTurnService(req.body);
-  res.status(201).json(newTurn);
+  res.status(201).json({ message: "Turno creado" });
 };
 
 export const cancelTurnController = async (req: Request, res: Response) => {
@@ -44,12 +44,26 @@ export const cancelTurnController = async (req: Request, res: Response) => {
     return;
   }
 
-  const turn = await cancelTurnService(turnId);
-
-  if (!turn) {
-    res.status(404).json({ message: "Turn not found" });
-    return;
+  try {
+    const turn = await cancelTurnService(turnId);
+    res.status(200).json(turn);
+  } catch (error: any) {
+    res.status(400).json({ message: error.message });
   }
 
-  res.status(200).json(turn);
+  // const turnId = Number(req.params.id);
+
+  // if (isNaN(turnId)) {
+  //   res.status(400).json({ message: "Invalid turn ID" });
+  //   return;
+  // }
+
+  // const turn = await cancelTurnService(turnId);
+
+  // if (!turn) {
+  //   res.status(404).json({ message: "Turn not found" });
+  //   return;
+  // }
+
+  // res.status(200).json(turn);
 };

@@ -4,6 +4,7 @@ import {
   getUsersService,
   getUsersByIdService,
   createUserService,
+  userLoginService,
 } from "../services/usersService";
 
 import { User } from "../entities/User";
@@ -32,13 +33,39 @@ export const getUserByIdController = async (req: Request, res: Response) => {
 };
 
 export const createUserController = async (req: Request, res: Response) => {
-  // const { name, email, birthdate, nDni, username, password } = req.body;
-  const newUser: User = await createUserService(req.body);
-  res.status(201).json(newUser);
+  try {
+    const newUser: User = await createUserService(req.body);
+    // res.status(201).json(newUser);
+    res.status(201).json({ message: "Usuario creado correctamente" });
+  } catch (error) {
+    res.status(400).json({ error: "Error al crear el usuario." });
+  }
 };
 
-// export const userLoginController = async (req: Request, res: Response) => {
-//   res
-//     .status(201)
-//     .json({ message: "Ejecutando controlador para loguear usuario" });
-// };
+export const userLoginController = async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+
+  if (!username || !password) {
+    res.status(400).json({ message: "Faltan credenciales" });
+    return;
+  }
+
+  try {
+    const user = await userLoginService(username, password);
+
+    res.status(200).json({
+      login: true,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        birthdate: user.birthdate,
+        nDni: user.nDni,
+      },
+    });
+    return;
+  } catch (error) {
+    res.status(400).json({ login: false, message: "Credenciales incorrectas" });
+    return;
+  }
+};
