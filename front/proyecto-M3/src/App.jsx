@@ -1,12 +1,14 @@
-import Home from "./views/Home";
-import Turns from "./views/Turns";
+import NavBar from "./components/NavBar/NavBar";
+import Home from "./views/Home/Home";
+import Turns from "./views/Turns/Turns";
 
 function App() {
   return (
     <div>
-      <Home />
+      <NavBar />
+      {/* <Home /> */}
 
-      {/* <Turns /> */}
+      <Turns />
     </div>
   );
 }

@@ -1,0 +1,47 @@
+.title {
+  text-align: center;
+  margin: 40px 0; /* 40px arriba y abajo, 0 a los lados */
+  font-size: 3rem; /* Ajusta según el diseño que quieras */
+  font-weight: bold;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.2rem; /* Más pequeño que el h1 */
+  color: #b67b38; /* Color gris suave */
+  margin-bottom: 30px; /* Espacio debajo del subtítulo */
+}
+
+.turnsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px;
+}
+
+.turnCard {
+  flex: 0 1 calc(25% - 20px); /* 4 tarjetas en pantalla grande */
+  max-width: 300px;
+}
+
+/* 3 tarjetas en pantallas medianas */
+@media (max-width: 1024px) {
+  .turnCard {
+    flex: 0 1 calc(33.33% - 20px);
+  }
+}
+
+/* 2 tarjetas en tablets */
+@media (max-width: 768px) {
+  .turnCard {
+    flex: 0 1 calc(50% - 20px);
+  }
+}
+
+/* 1 tarjeta en móviles */
+@media (max-width: 480px) {
+  .turnCard {
+    flex: 0 1 100%;
+  }
+}

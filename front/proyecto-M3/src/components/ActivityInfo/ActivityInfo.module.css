@@ -1,0 +1,47 @@
+.card {
+  position: relative; /* Permite usar position: absolute en los elementos internos */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Alinea los elementos al fondo */
+  width: 100%; /* Usamos el 100% del espacio disponible */
+  max-width: 400px;
+  min-width: 280px;
+  margin: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.textContainer {
+  position: absolute;
+  bottom: 0; /* Coloca el texto en la parte inferior de la tarjeta */
+  left: 0;
+  width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para el texto */
+  color: white; /* Color de texto blanco */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.description {
+  font-size: 14px;
+  color: white;
+  margin-bottom: 10px; /* Un poco de espacio debajo del texto */
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff6600;
+  text-align: right; /* Alineamos el precio a la derecha */
+}

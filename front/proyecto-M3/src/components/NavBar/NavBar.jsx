@@ -1,12 +1,12 @@
 import styles from "./NavBar.module.css";
-import logoAAT from "../assets/img/logoAAT.png";
-import logoHamburguer from "../assets/img/logoHamburguer.svg";
-import Menu from "./Menu";
+import logoAAT from "../../assets/img/logoAAT.png";
+import logoHamburguer from "../../assets/img/logoHamburguer.svg";
+import Menu from "../Menus/Menu";
 import { useState } from "react";
 
 const NavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => {
+  const handleToggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
 
@@ -25,7 +25,7 @@ const NavBar = () => {
         className={styles.hamburguerIcon}
         src={logoHamburguer}
         alt="Hamburguer"
-        onClick={toggleMenu}
+        onClick={handleToggleMenu}
       />
     </div>
   );

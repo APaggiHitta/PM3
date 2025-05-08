@@ -14,8 +14,9 @@
 .menus {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 35px;
   color: rgba(236, 141, 36, 255);
+
   font-weight: 600;
   transition: transform 0.3s ease-in-out;
 }
