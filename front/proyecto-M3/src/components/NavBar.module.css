@@ -1,0 +1,58 @@
+.mainContainer {
+  display: flex;
+  background-color: rgba(15, 53, 38, 255);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0% 4% 0% 0%;
+  position: relative;
+}
+
+.logo {
+  height: 10rem;
+}
+
+.menus {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: rgba(236, 141, 36, 255);
+  font-weight: 600;
+  transition: transform 0.3s ease-in-out;
+}
+
+.hamburguerIcon {
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 950px) {
+  .menus {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    width: 20%; /* Cambiar a 50% del ancho de la pantalla */
+
+    background-color: rgba(15, 53, 38, 255);
+    padding: 20px 0;
+    align-items: center;
+
+    position: absolute;
+    top: 100%;
+    right: 0;
+    flex-direction: column;
+    gap: 10px;
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    transform: translateY(-100%);
+  }
+
+  .hamburguerIcon {
+    display: block;
+  }
+
+  .menus.open {
+    display: flex;
+    transform: translateY(0);
+  }
+}
