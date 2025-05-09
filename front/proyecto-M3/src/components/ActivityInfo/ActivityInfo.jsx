@@ -8,6 +8,7 @@ const ActivityInfo = ({ image, price, description }) => {
       <div className={styles.textContainer}>
         <div className={styles.description}>{description}</div>
         <div className={styles.price}>{price}</div>
+        <button className={styles.reserveButton}>Reservar</button>
       </div>
     </div>
   );

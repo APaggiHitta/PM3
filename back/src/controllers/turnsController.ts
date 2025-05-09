@@ -31,9 +31,22 @@ export const getTurnsByIdController = async (req: Request, res: Response) => {
   res.status(200).json(turn);
 };
 
+// export const createTurnController = async (req: Request, res: Response) => {
+//   const newTurn: Turn = await createTurnService(req.body);
+//   res.status(201).json({ message: "Turno creado" });
+// };
+
 export const createTurnController = async (req: Request, res: Response) => {
-  const newTurn: Turn = await createTurnService(req.body);
-  res.status(201).json({ message: "Turno creado" });
+  try {
+    const newTurn: Turn = await createTurnService(req.body);
+    res.status(201).json({
+      message: "Turno creado exitosamente",
+    });
+  } catch (error: any) {
+    res.status(400).json({
+      message: error.message,
+    });
+  }
 };
 
 export const cancelTurnController = async (req: Request, res: Response) => {
