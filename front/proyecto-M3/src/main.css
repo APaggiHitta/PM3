@@ -6,6 +6,12 @@
   font-family: "Montserrat", "Urbanist", sans-serif;
 }
 
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: sans-serif;
   background-color: #99beb0;

@@ -1,0 +1,45 @@
+.mainContainer {
+  display: flex;
+  background-color: rgba(15, 53, 38, 255);
+  align-items: center;
+  justify-content: space-between;
+  padding: 0% 4% 0% 0%;
+  position: relative;
+  height: 200px;
+}
+
+.logo {
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
+}
+
+.telefono {
+  display: flex;
+  color: rgba(236, 141, 36, 255);
+  margin-left: 80px;
+}
+
+.socialMedia {
+  color: rgba(236, 141, 36, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.socialMedia h3 {
+  margin-bottom: 10px;
+  color: rgba(236, 141, 36, 1);
+}
+
+.socialMedia div {
+  display: flex;
+  gap: 16px; /* Espaciado entre logos */
+  justify-content: center;
+}
+
+.socialMedia img {
+  width: 24px;
+  height: 24px;
+}

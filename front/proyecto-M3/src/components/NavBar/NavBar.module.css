@@ -8,7 +8,9 @@
 }
 
 .logo {
-  height: 10rem;
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
 }
 
 .menus {
@@ -24,6 +26,7 @@
 .hamburguerIcon {
   display: none;
   cursor: pointer;
+  z-index: 20;
 }
 
 @media (max-width: 950px) {
@@ -31,7 +34,7 @@
     display: none;
     flex-direction: column;
     gap: 10px;
-    width: 20%; /* Cambiar a 50% del ancho de la pantalla */
+    width: 200px;
 
     background-color: rgba(15, 53, 38, 255);
     padding: 20px 0;
