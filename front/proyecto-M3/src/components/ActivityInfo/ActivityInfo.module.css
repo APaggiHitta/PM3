@@ -1,9 +1,9 @@
 .card {
-  position: relative; /* Permite usar position: absolute en los elementos internos */
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* Alinea los elementos al fondo */
-  width: 100%; /* Usamos el 100% del espacio disponible */
+  justify-content: flex-end;
+  width: 100%;
   max-width: 400px;
   min-width: 280px;
   margin: 10px;
@@ -22,12 +22,12 @@
 
 .textContainer {
   position: absolute;
-  bottom: 0; /* Coloca el texto en la parte inferior de la tarjeta */
+  bottom: 0;
   left: 0;
-  width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+  width: 100%;
   padding: 15px;
-  background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para el texto */
-  color: white; /* Color de texto blanco */
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -36,12 +36,73 @@
 .description {
   font-size: 14px;
   color: white;
-  margin-bottom: 10px; /* Un poco de espacio debajo del texto */
+  margin-bottom: 10px;
 }
 
 .price {
   font-size: 18px;
   font-weight: bold;
   color: #ff6600;
-  text-align: right; /* Alineamos el precio a la derecha */
+  text-align: left;
+}
+
+/* Agregar el hover para mostrar el contenido */
+.card:hover::before {
+  transform: translateY(0); /* Mueve el fondo hacia abajo */
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background-color: rgba(15, 53, 38, 0.8);
+  transform: translateY(-100%);
+  transition: transform 0.5s ease;
+  z-index: 5;
+}
+
+.card .hoverContent {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Centramos horizontal y verticalmente */
+  display: none; /* Ocultamos el contenido por defecto */
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.card:hover .hoverContent {
+  display: flex; /* Se muestra solo en hover */
+}
+
+.card .hoverContent .text {
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.card .hoverContent .reserveButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card .hoverContent .reserveButton:hover {
+  background-color: transparent;
+}
+
+.card .hoverContent .reserveButton img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) saturate(100%) invert(62%) sepia(60%) saturate(684%)
+    hue-rotate(356deg) brightness(101%) contrast(97%);
 }

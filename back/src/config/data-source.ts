@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
   username: "postgres",
   password: "12345",
   database: "amazing_amazonas_db",
-  // dropSchema: true,
+  dropSchema: true,
   synchronize: true,
   logging: false,
   entities: [User, Turn, Credential, Activity],
