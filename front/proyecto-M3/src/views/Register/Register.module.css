@@ -1,0 +1,79 @@
+.title {
+  text-align: center;
+  margin: 40px 0;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #b67b38;
+  margin-bottom: 30px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinea arriba en vez de centrar verticalmente */
+  min-height: calc(100vh - 30px); /* Asegura altura útil */
+  margin-top: 30px; /* Separa del subtítulo */
+  margin-bottom: 30px;
+}
+
+.form {
+  background-color: #f0f0f0; /* opcional */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 380px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column; /* Asegura que label, input y error estén apilados */
+  margin-bottom: 15px;
+}
+
+.inputGroup label {
+  font-weight: bold;
+}
+
+.inputGroup input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-top: 5px; /* Un poco de separación entre el label y el input */
+}
+
+.submitButton {
+  display: block; /* Permite centrar con margin auto */
+  margin: 30px auto 0; /* Espacio arriba, centrado horizontal */
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submitButton:hover:enabled {
+  background-color: #0056b3;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 0.8rem; /* Tamaño de letra más pequeño */
+  font-style: italic; /* Cursiva */
+  margin-top: 5px; /* Un poco de espacio arriba del mensaje */
+  display: block; /* Asegura que el error esté en una nueva línea */
+}

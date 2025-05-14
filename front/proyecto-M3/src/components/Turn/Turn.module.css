@@ -16,10 +16,6 @@
   font-size: 20px;
   margin-bottom: 10px;
   color: #333;
-
-  height: 48px; /* altura fija suficiente para 2 líneas */
-  line-height: 1.2;
-  overflow: hidden;
 }
 
 .card h3 {
