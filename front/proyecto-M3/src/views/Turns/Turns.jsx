@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import myTurns from "../../helpers/myTurns";
+
 import Turn from "../../components/Turn/Turn";
 import styles from "./Turns.module.css";
 import axios from "axios";
@@ -22,6 +22,7 @@ const Turns = () => {
               description={turn.activity.name}
               date={turn.date}
               time={turn.time}
+              status={turn.status}
             />
           </div>
         ))}
