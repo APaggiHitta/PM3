@@ -8,8 +8,8 @@ function App() {
   return (
     <div>
       <NavBar />
-      <Home />
-      {/* <Turns /> */}
+      {/* <Home /> */}
+      <Turns />
       {/* <Contact /> */}
       <Footer />
     </div>

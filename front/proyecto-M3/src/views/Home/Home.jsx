@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActivityInfo from "../../components/ActivityInfo/ActivityInfo";
 import CoverImage from "../../components/CoverImage/CoverImage";
 import activityInfo from "../../helpers/activityInfo";
-import styles from "./Home.module.css"; // Importamos los estilos
+import styles from "./Home.module.css";
 
 const Home = () => {
   const [activities, setActivities] = useState(activityInfo);
