@@ -5,18 +5,26 @@ import Turns from "./views/Turns/Turns";
 import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
 import Contact from "./views/Contact/Contact";
+import About from "./views/About/About";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div>
+    <>
       <NavBar />
-      {/* <Home /> */}
-      {/* <Turns /> */}
-      {/* <Register /> */}
-      <Login />
-      {/* <Contact /> */}
+      <div>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/turns" element={<Turns />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          {/* Falta about */}
+        </Routes>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 

@@ -62,3 +62,13 @@
     transform: translateY(0);
   }
 }
+.navLink {
+  color: rgba(236, 141, 36, 255); /* color base */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease-in-out;
+}
+
+.navLink:hover {
+  color: #d8f3dc; /* verde claro y pálido */
+}
