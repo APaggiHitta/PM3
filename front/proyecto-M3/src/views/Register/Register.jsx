@@ -13,6 +13,7 @@ const Register = () => {
     photo: "",
     password1: "",
     password2: "",
+    acceptPolicies: false,
   });
 
   const [errors, setErrors] = useState({
@@ -23,6 +24,7 @@ const Register = () => {
     nDni: "Número de documento del usuario es obligatorio (sin puntos ni guiones)",
     password1: "Se debe ingresar una contraseña",
     password2: "Se debe repetir la contraseña",
+    acceptPolicies: "Debes aceptar nuestras Políticas para continuar",
   });
 
   const handleInputChange = (event) => {
@@ -48,13 +50,14 @@ const Register = () => {
   const formatName = (text) =>
     text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 
-  const handleOnSubmit = (event) => {
+  const handleOnSubmit = async (event) => {
     event.preventDefault();
 
     const fullName = `${formatName(userData.username)} ${formatName(
       userData.userlastname
     )}`;
 
+    console.log(fullName);
     const payload = {
       name: fullName,
       email: userData.email,
@@ -65,7 +68,7 @@ const Register = () => {
     };
 
     try {
-      const response = axios.post(
+      const response = await axios.post(
         "http://localhost:3000/users/register",
         payload
       );
@@ -77,6 +80,20 @@ const Register = () => {
       console.error("Error al registrar usuario:", error);
       alert("Hubo un error al registrar el usuario");
     }
+  };
+
+  const isFormValid = () => {
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+
+    const requiredFieldsFilled = Object.entries(userData).every(
+      ([key, value]) => {
+        if (key === "photo") return true; // Ignorar campo 'photo'
+        if (typeof value === "boolean") return value; // checkbox (debe ser true)
+        return value.toString().trim() !== ""; // campos de texto
+      }
+    );
+
+    return !hasErrors && requiredFieldsFilled;
   };
 
   return (
@@ -135,7 +152,7 @@ const Register = () => {
 
           <div className={styles.inputGroup}>
             <label>Número de documento</label>
-            <input type="number" name="nDni" onChange={handleInputChange} />
+            <input type="text" name="nDni" onChange={handleInputChange} />
             {errors.nDni && (
               <p className={styles.errorMessage}>{errors.nDni}</p>
             )}
@@ -181,7 +198,33 @@ const Register = () => {
             )}
           </div>
 
-          <button className={styles.submitButton}>Crear usuario</button>
+          <label className={styles.termsConditions} htmlFor="">
+            <input
+              type="checkbox"
+              name="acceptPolicies"
+              checked={userData.acceptPolicies}
+              onChange={(event) =>
+                handleInputChange({
+                  target: {
+                    name: "acceptPolicies",
+                    value: event.target.checked,
+                  },
+                })
+              }
+            />
+            Acepto los Términos y Condiciones y las Políticas de Privacidad
+          </label>
+          {errors.acceptPolicies && (
+            <p className={styles.errorMessage}>{errors.acceptPolicies}</p>
+          )}
+
+          <button
+            disabled={!isFormValid()}
+            type="submit"
+            className={styles.submitButton}
+          >
+            Crear usuario
+          </button>
         </form>
       </div>
     </>

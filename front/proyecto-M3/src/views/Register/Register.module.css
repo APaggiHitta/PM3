@@ -77,3 +77,16 @@
   margin-top: 5px; /* Un poco de espacio arriba del mensaje */
   display: block; /* Asegura que el error esté en una nueva línea */
 }
+
+.termsConditions {
+  display: flex;
+  align-items: center;
+  font-style: italic;
+  font-size: 0.8rem;
+  gap: 8px;
+}
+
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

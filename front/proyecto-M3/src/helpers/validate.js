@@ -66,6 +66,13 @@ export const validate = (fieldName, fieldValue, userData) => {
       }
       break;
 
+    case "acceptPolicies":
+      if (!fieldValue) {
+        errors.acceptPolicies =
+          "Debes aceptar nuestras Políticas para continuar";
+      }
+      break;
+
     default:
       break;
   }
