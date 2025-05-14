@@ -2,6 +2,7 @@ import styles from "../Register/Register.module.css";
 import { useState } from "react";
 import { validate } from "../../helpers/validate";
 import axios from "axios";
+import ModalWindow from "../../components/ModalWindow/ModalWindow";
 
 const Login = () => {
   const [userData, setUserData] = useState({
@@ -13,6 +14,10 @@ const Login = () => {
     email: "E-Mail del usuario es obligatorio",
     password1: "Se debe ingresar una contraseña",
   });
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
 
   const isFormValid = Object.values(errors).every((error) => error === "");
 
@@ -51,7 +56,11 @@ const Login = () => {
       alert("Usuario logueado con éxito");
     } catch (error) {
       console.error("Error al registrar usuario:", error);
-      alert("Ups!! Revisa nombre de usuario o contraseña ingresados");
+      setModalTitle("¡Ups! Algo ha ido mal");
+      setModalMessage(
+        "Revisa que tu usuario y contraseña proporcionados sean correctos."
+      );
+      setShowModal(true);
     }
   };
 
@@ -63,6 +72,13 @@ const Login = () => {
       </h2>
 
       <div className={styles.container}>
+        {showModal && (
+          <ModalWindow
+            title={modalTitle}
+            message={modalMessage}
+            onClose={() => setShowModal(false)}
+          />
+        )}
         <form onSubmit={handleOnSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label>Usuario (E-Mail)</label>

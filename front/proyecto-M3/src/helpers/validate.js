@@ -30,9 +30,7 @@ export const validate = (fieldName, fieldValue, userData) => {
         const today = new Date();
         const age = today.getFullYear() - birthDate.getFullYear();
         const month = today.getMonth() - birthDate.getMonth();
-        const day = today.getDate() - birthDate.getDate(); // Compara el día también
-        console.log(age);
-        // Si la edad es menor a 18 años
+        const day = today.getDate() - birthDate.getDate();
         if (
           age < 18 ||
           (age === 18 && (month < 0 || (month === 0 && day < 0)))

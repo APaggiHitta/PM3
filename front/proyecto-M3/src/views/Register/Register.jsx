@@ -1,7 +1,8 @@
 import styles from "./Register.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { validate } from "../../helpers/validate";
 import axios from "axios";
+import ModalWindow from "../../components/ModalWindow/ModalWindow";
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -26,6 +27,12 @@ const Register = () => {
     password2: "Se debe repetir la contraseña",
     acceptPolicies: "Debes aceptar nuestras Políticas para continuar",
   });
+
+  const [isRegistered, setIsRegistered] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [registeredName, setRegisteredName] = useState("");
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -57,7 +64,6 @@ const Register = () => {
       userData.userlastname
     )}`;
 
-    console.log(fullName);
     const payload = {
       name: fullName,
       email: userData.email,
@@ -73,9 +79,10 @@ const Register = () => {
         payload
       );
       console.log("Respuesta del servidor:", response.data);
-      alert("Usuario registrado con éxito");
-      // Podés limpiar el formulario si querés:
-      // setUserData({ ... }); // vaciar los campos
+
+      setRegisteredName(formatName(userData.username));
+      setShowModal(true);
+      setIsRegistered(true);
     } catch (error) {
       console.error("Error al registrar usuario:", error);
       alert("Hubo un error al registrar el usuario");
@@ -96,12 +103,49 @@ const Register = () => {
     return !hasErrors && requiredFieldsFilled;
   };
 
+  useEffect(() => {
+    if (isRegistered) {
+      setUserData({
+        username: "",
+        userlastname: "",
+        email: "",
+        birthdate: "",
+        nDni: "",
+        photo: "",
+        password1: "",
+        password2: "",
+        acceptPolicies: false,
+      });
+
+      setErrors({
+        username: "Nombre del usuario es obligatorio",
+        userlastname: "Apellido del usuario es obligatorio",
+        email: "E-Mail del usuario es obligatorio",
+        birthdate: "Fecha de nacimiento del usuario es obligatoria",
+        nDni: "Número de documento del usuario es obligatorio (sin puntos ni guiones)",
+        password1: "Se debe ingresar una contraseña",
+        password2: "Se debe repetir la contraseña",
+        acceptPolicies: "Debes aceptar nuestras Políticas para continuar",
+      });
+
+      setIsRegistered(false);
+    }
+  }, [isRegistered]);
+
   return (
     <>
       <h1 className={styles.title}>VACACIONES Y AVENTURAS EN EL AMAZONAS</h1>
       <h2 className={styles.subtitle}>CREA UN NUEVO USUARIO</h2>
 
       <div className={styles.container}>
+        {showModal && (
+          <ModalWindow
+            title={`¡Bienvenido ${registeredName}!`}
+            message="Tu usuario se ha dado de alta en nuestra base de datos."
+            onClose={() => setShowModal(false)}
+          />
+        )}
+
         <form onSubmit={handleOnSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label>Nombre</label>
@@ -109,6 +153,7 @@ const Register = () => {
               type="text"
               name="username"
               placeholder="John"
+              value={userData.username}
               onChange={handleInputChange}
             />
             {errors.username && (
@@ -122,6 +167,7 @@ const Register = () => {
               type="text"
               name="userlastname"
               placeholder="Doe"
+              value={userData.userlastname}
               onChange={handleInputChange}
             />
             {errors.userlastname && (
@@ -135,6 +181,7 @@ const Register = () => {
               type="text"
               name="email"
               placeholder="example@mail.com"
+              value={userData.email}
               onChange={handleInputChange}
             />
             {errors.email && (
@@ -144,7 +191,12 @@ const Register = () => {
 
           <div className={styles.inputGroup}>
             <label>Fecha de nacimiento</label>
-            <input type="date" name="birthdate" onChange={handleInputChange} />
+            <input
+              type="date"
+              name="birthdate"
+              value={userData.birthdate}
+              onChange={handleInputChange}
+            />
             {errors.birthdate && (
               <p className={styles.errorMessage}>{errors.birthdate}</p>
             )}
@@ -152,7 +204,12 @@ const Register = () => {
 
           <div className={styles.inputGroup}>
             <label>Número de documento</label>
-            <input type="text" name="nDni" onChange={handleInputChange} />
+            <input
+              type="text"
+              name="nDni"
+              value={userData.nDni}
+              onChange={handleInputChange}
+            />
             {errors.nDni && (
               <p className={styles.errorMessage}>{errors.nDni}</p>
             )}
@@ -178,6 +235,7 @@ const Register = () => {
               type="password"
               name="password1"
               placeholder="******"
+              value={userData.password1}
               onChange={handleInputChange}
             />
             {errors.password1 && (
@@ -191,6 +249,7 @@ const Register = () => {
               type="password"
               name="password2"
               placeholder="******"
+              value={userData.password2}
               onChange={handleInputChange}
             />
             {errors.password2 && (
