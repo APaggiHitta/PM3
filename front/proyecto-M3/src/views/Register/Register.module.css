@@ -157,3 +157,21 @@
     opacity: 1;
   }
 }
+
+.registerPrompt {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.navLink {
+  color: rgba(236, 141, 36, 255); /* mismo color que en navbar */
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease-in-out;
+}
+
+.navLink:hover {
+  color: #d8f3dc; /* verde claro y pálido */
+}

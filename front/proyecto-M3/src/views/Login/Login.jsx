@@ -1,10 +1,15 @@
 import styles from "../Register/Register.module.css";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { validate } from "../../helpers/validate";
 import axios from "axios";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext/UserContext";
 
 const Login = () => {
+  const { login } = useContext(UserContext);
+  const navigate = useNavigate();
+
   const [userData, setUserData] = useState({
     email: "",
     password1: "",
@@ -18,6 +23,8 @@ const Login = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   const isFormValid = Object.values(errors).every((error) => error === "");
 
@@ -46,21 +53,37 @@ const Login = () => {
       username: userData.email,
       password: userData.password1,
     };
-    console.log(payload);
+
     try {
       const response = await axios.post(
         "http://localhost:3000/users/login",
         payload
       );
-      console.log("Respuesta del servidor:", response.data);
-      alert("Usuario logueado con éxito");
+
+      const user = response.data.user;
+
+      login(user);
+
+      const firstName = user.name?.split(" ")[0] || "usuario";
+      setModalTitle(`Hola ${firstName}`);
+      setModalMessage("Bienvenido a las aventuras de tu vida");
+      setLoginSuccess(true);
+      setShowModal(true);
     } catch (error) {
-      console.error("Error al registrar usuario:", error);
+      console.error("Error al loguear usuario:", error);
       setModalTitle("¡Ups! Algo ha ido mal");
       setModalMessage(
         "Revisa que tu usuario y contraseña proporcionados sean correctos."
       );
+      setLoginSuccess(false);
       setShowModal(true);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    if (loginSuccess) {
+      navigate("/turns");
     }
   };
 
@@ -71,12 +94,20 @@ const Login = () => {
         BIENVENIDO!! INGRESA TUS DATOS PARA ACCEDER AL SITIO
       </h2>
 
+      <p className={styles.registerPrompt}>
+        ¿Aún no tienes usuario?{" "}
+        <Link to="/register" className={styles.navLink}>
+          ¡Regístrate!
+        </Link>
+      </p>
+
       <div className={styles.container}>
         {showModal && (
           <ModalWindow
             title={modalTitle}
             message={modalMessage}
-            onClose={() => setShowModal(false)}
+            buttonText="Listo!"
+            onClose={handleCloseModal}
           />
         )}
         <form onSubmit={handleOnSubmit} className={styles.form}>

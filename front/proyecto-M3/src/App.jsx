@@ -6,7 +6,7 @@ import Register from "./views/Register/Register";
 import Login from "./views/Login/Login";
 import Contact from "./views/Contact/Contact";
 import About from "./views/About/About";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 function App() {
   return (
@@ -14,6 +14,8 @@ function App() {
       <NavBar />
       <div>
         <Routes>
+          <Route path="/" element={<Navigate to="/home" replace />} />
+
           <Route path="/home" element={<Home />} />
           <Route path="/turns" element={<Turns />} />
           <Route path="/contact" element={<Contact />} />

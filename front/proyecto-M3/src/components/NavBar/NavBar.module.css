@@ -72,3 +72,41 @@
 .navLink:hover {
   color: #d8f3dc; /* verde claro y pálido */
 }
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.2;
+}
+
+.greeting {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.name {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.logoutLink {
+  font-size: 0.8rem;
+  color: #0077cc;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.avatarCircle {
+  width: 40px;
+  height: 40px;
+  background-color: #ccc;
+  border-radius: 50%;
+}
