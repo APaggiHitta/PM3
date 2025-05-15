@@ -37,39 +37,21 @@ const preloadActivities = [
     {
         name: "Circuito indígena",
     },
+    {
+        name: "Avistamiento de aves",
+    },
+    {
+        name: "Fotografía extrema",
+    },
 ];
 const preloadUsers = [
-    {
-        name: "Juan Perez",
-        email: "jperez@mail.com",
-        birthdate: new Date("2010-03-12"),
-        nDni: 345345345,
-        username: "jperez",
-        password: "juanperez",
-    },
     {
         name: "Alvaro Paggi",
         email: "apaggi@mail.com",
         birthdate: new Date("2010-03-12"),
         nDni: 9384938,
         username: "apaggi",
-        password: "alvaro",
-    },
-    {
-        name: "Ruben Aguilera",
-        email: "raguilera@mail.com",
-        birthdate: new Date("2010-08-12"),
-        nDni: 93958989,
-        username: "raguilera",
-        password: "ruben",
-    },
-    {
-        name: "Facundo Paggi",
-        email: "fpaggi@mail.com",
-        birthdate: new Date("2011-03-12"),
-        nDni: 238785,
-        username: "fpaggi",
-        password: "facundo",
+        password: "admin",
     },
 ];
 const preloadTurns = [
@@ -91,14 +73,14 @@ const preloadTurns = [
         date: new Date("2025-06-20"),
         time: "14:30",
         status: "active",
-        userId: 2,
+        userId: 1,
         activityId: 4,
     },
     {
         date: new Date("2025-07-18"),
         time: "10:30",
         status: "cancelled",
-        userId: 3,
+        userId: 1,
         activityId: 5,
     },
 ];
@@ -141,6 +123,12 @@ const preloadUsersData = () => __awaiter(void 0, void 0, void 0, function* () {
                 const user = _c;
                 const newUser = yield data_source_1.UserModel.create(user);
                 yield transactionalEntityManager.save(newUser);
+                const newCredential = yield data_source_1.CredentialModel.create({
+                    username: user.username,
+                    password: user.password,
+                    user: newUser, // asociación OneToOne
+                });
+                yield transactionalEntityManager.save(newCredential);
             }
         }
         catch (e_2_1) { e_2 = { error: e_2_1 }; }

@@ -16,7 +16,7 @@ const activityInfo = [
     id: 2,
     image: imgCanotaje,
     price: "USD 800",
-    description: "Aventura en canotaje por los rápidos del Amazonas.",
+    description: "Aventura en canoa por el laberinto de ríos del Amazonas.",
   },
   {
     id: 3,

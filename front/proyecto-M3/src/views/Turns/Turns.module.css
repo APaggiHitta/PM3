@@ -45,3 +45,15 @@
     flex: 0 1 100%;
   }
 }
+
+.importantNote {
+  background-color: #fff3cd; /* fondo amarillo claro */
+  color: #856404; /* marrón oscuro para buena lectura */
+  border: 1px solid #ffeeba;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  font-weight: bold;
+  margin-top: 30px;
+  text-align: center;
+}

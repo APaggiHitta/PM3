@@ -1,4 +1,4 @@
-import styles from "../Register/Register.module.css";
+import styles from "../../styles/Form.module.css";
 import { useState, useContext } from "react";
 import { validate } from "../../helpers/validate";
 import axios from "axios";

@@ -39,6 +39,26 @@ export const validate = (fieldName, fieldValue, userData) => {
         }
       }
       break;
+    case "date":
+      if (!fieldValue.trim()) {
+        errors.date = "Debes elegir una fecha";
+      } else {
+        // Crear fecha preservando zona local para evitar errores con getDay()
+        const [year, month, day] = fieldValue.split("-").map(Number);
+        const selectedDate = new Date(year, month - 1, day); // mes: 0-indexado
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const tomorrow = new Date(today);
+        tomorrow.setDate(today.getDate() + 1);
+
+        if (selectedDate < tomorrow) {
+          errors.date = "Debes elegir una fecha a partir de mañana";
+        } else if (selectedDate.getDay() === 0) {
+          errors.date = "Recuerda que no trabajamos los domingos!";
+        }
+      }
+      break;
 
     case "nDni":
       if (!fieldValue.trim()) {

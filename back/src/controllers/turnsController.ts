@@ -31,11 +31,6 @@ export const getTurnsByIdController = async (req: Request, res: Response) => {
   res.status(200).json(turn);
 };
 
-// export const createTurnController = async (req: Request, res: Response) => {
-//   const newTurn: Turn = await createTurnService(req.body);
-//   res.status(201).json({ message: "Turno creado" });
-// };
-
 export const createTurnController = async (req: Request, res: Response) => {
   try {
     const newTurn: Turn = await createTurnService(req.body);

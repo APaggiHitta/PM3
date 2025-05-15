@@ -3,6 +3,7 @@ import {
   AppDataSource,
   TurnModel,
   UserModel,
+  CredentialModel,
 } from "../config/data-source";
 import { User } from "../entities/User";
 import ITurn from "../interfaces/ITurn";
@@ -28,40 +29,22 @@ const preloadActivities: IActivity[] = [
   {
     name: "Circuito indígena",
   },
+  {
+    name: "Avistamiento de aves",
+  },
+  {
+    name: "Fotografía extrema",
+  },
 ];
 
 const preloadUsers: IUser[] = [
-  {
-    name: "Juan Perez",
-    email: "jperez@mail.com",
-    birthdate: new Date("2010-03-12"),
-    nDni: 345345345,
-    username: "jperez",
-    password: "juanperez",
-  },
   {
     name: "Alvaro Paggi",
     email: "apaggi@mail.com",
     birthdate: new Date("2010-03-12"),
     nDni: 9384938,
     username: "apaggi",
-    password: "alvaro",
-  },
-  {
-    name: "Ruben Aguilera",
-    email: "raguilera@mail.com",
-    birthdate: new Date("2010-08-12"),
-    nDni: 93958989,
-    username: "raguilera",
-    password: "ruben",
-  },
-  {
-    name: "Facundo Paggi",
-    email: "fpaggi@mail.com",
-    birthdate: new Date("2011-03-12"),
-    nDni: 238785,
-    username: "fpaggi",
-    password: "facundo",
+    password: "admin",
   },
 ];
 
@@ -84,14 +67,14 @@ const preloadTurns: ITurn[] = [
     date: new Date("2025-06-20"),
     time: "14:30",
     status: "active",
-    userId: 2,
+    userId: 1,
     activityId: 4,
   },
   {
     date: new Date("2025-07-18"),
     time: "10:30",
     status: "cancelled",
-    userId: 3,
+    userId: 1,
     activityId: 5,
   },
 ];
@@ -125,6 +108,13 @@ export const preloadUsersData = async () => {
       for await (const user of preloadUsers) {
         const newUser = await UserModel.create(user);
         await transactionalEntityManager.save(newUser);
+
+        const newCredential = await CredentialModel.create({
+          username: user.username,
+          password: user.password,
+          user: newUser, // asociación OneToOne
+        });
+        await transactionalEntityManager.save(newCredential);
       }
 
       console.log("Users data preload completed successfully");
