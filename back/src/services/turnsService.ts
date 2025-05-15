@@ -40,6 +40,7 @@ export const getTurnsByUserIdService = async (
       activity: true,
     },
     order: {
+      id: "ASC",
       date: "ASC",
       time: "ASC",
     },

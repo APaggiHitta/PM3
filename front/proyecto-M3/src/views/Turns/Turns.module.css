@@ -57,3 +57,11 @@
   margin-top: 30px;
   text-align: center;
 }
+
+.noTurnsMessage {
+  text-align: center;
+  color: #b67b38;
+  font-size: 1.1rem;
+  margin: 20px auto;
+  max-width: 600px;
+}

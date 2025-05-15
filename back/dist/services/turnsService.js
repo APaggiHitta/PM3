@@ -45,6 +45,7 @@ const getTurnsByUserIdService = (userId) => __awaiter(void 0, void 0, void 0, fu
             activity: true,
         },
         order: {
+            id: "ASC",
             date: "ASC",
             time: "ASC",
         },

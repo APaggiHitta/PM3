@@ -83,6 +83,27 @@ const preloadTurns = [
         userId: 1,
         activityId: 5,
     },
+    {
+        date: new Date("2025-07-18"),
+        time: "10:30",
+        status: "cancelled",
+        userId: 1,
+        activityId: 6,
+    },
+    {
+        date: new Date("2025-07-18"),
+        time: "10:30",
+        status: "active",
+        userId: 1,
+        activityId: 7,
+    },
+    {
+        date: new Date("2025-07-18"),
+        time: "10:30",
+        status: "cancelled",
+        userId: 1,
+        activityId: 8,
+    },
 ];
 const preloadActivitiesData = () => __awaiter(void 0, void 0, void 0, function* () {
     yield data_source_1.AppDataSource.manager.transaction((transactionalEntityManager) => __awaiter(void 0, void 0, void 0, function* () {
