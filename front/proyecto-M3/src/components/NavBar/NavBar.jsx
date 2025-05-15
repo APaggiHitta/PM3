@@ -1,6 +1,7 @@
 import styles from "./NavBar.module.css";
 import logoAAT from "../../assets/img/logoAAT.png";
 import logoHamburguer from "../../assets/img/logoHamburguer.svg";
+import userAvatar from "../../assets/img/userAvatar.svg";
 import Menu from "../Menus/Menu";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
@@ -59,7 +60,13 @@ const NavBar = () => {
                   Cerrar sesión
                 </Link>
               </div>
-              <div className={styles.avatarCircle}></div>
+              <div className={styles.avatarContainer}>
+                <img
+                  src={userAvatar}
+                  alt="Avatar usuario"
+                  className={styles.avatarImage}
+                />
+              </div>
             </div>
           </>
         )}

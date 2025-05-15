@@ -26,6 +26,27 @@ export const getTurnsByIdService = async (id: number): Promise<Turn | null> => {
   return turn;
 };
 
+export const getTurnsByUserIdService = async (
+  userId: number
+): Promise<Turn[]> => {
+  const turns = await TurnModel.find({
+    where: {
+      user: {
+        id: userId,
+      },
+    },
+    relations: {
+      user: true,
+      activity: true,
+    },
+    order: {
+      date: "ASC",
+      time: "ASC",
+    },
+  });
+  return turns;
+};
+
 export const createTurnService = async (data: TurnDto) => {
   const user = await UserModel.findOneBy({ id: data.userId });
 

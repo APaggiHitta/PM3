@@ -50,8 +50,8 @@ const preloadUsers = [
         email: "apaggi@mail.com",
         birthdate: new Date("2010-03-12"),
         nDni: 9384938,
-        username: "apaggi",
-        password: "admin",
+        username: "apaggi@mail.com",
+        password: "holanda",
     },
 ];
 const preloadTurns = [

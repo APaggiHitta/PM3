@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import {
   getTurnsService,
   getTurnsByIdService,
+  getTurnsByUserIdService,
   createTurnService,
   cancelTurnService,
 } from "../services/turnsService";
@@ -29,6 +30,27 @@ export const getTurnsByIdController = async (req: Request, res: Response) => {
   }
 
   res.status(200).json(turn);
+};
+
+export const getTurnsByUserIdController = async (
+  req: Request,
+  res: Response
+) => {
+  const userId = Number(req.params.id);
+
+  if (isNaN(userId)) {
+    res.status(400).json({ message: "Invalid user ID" });
+    return;
+  }
+
+  const turns = await getTurnsByUserIdService(userId);
+
+  if (!turns) {
+    res.status(404).json({ message: "Turn not found" });
+    return;
+  }
+
+  res.status(200).json(turns);
 };
 
 export const createTurnController = async (req: Request, res: Response) => {

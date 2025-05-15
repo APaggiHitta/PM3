@@ -12,7 +12,6 @@ const Turns = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // ✅ Proteger la ruta si no hay usuario
   useEffect(() => {
     if (!user) {
       navigate("/home");

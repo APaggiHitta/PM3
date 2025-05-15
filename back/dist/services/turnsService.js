@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cancelTurnService = exports.createTurnService = exports.getTurnsByIdService = exports.getTurnsService = void 0;
+exports.cancelTurnService = exports.createTurnService = exports.getTurnsByUserIdService = exports.getTurnsByIdService = exports.getTurnsService = void 0;
 const data_source_1 = require("../config/data-source");
 let turns = [];
 let id = 1;
@@ -33,6 +33,25 @@ const getTurnsByIdService = (id) => __awaiter(void 0, void 0, void 0, function* 
     return turn;
 });
 exports.getTurnsByIdService = getTurnsByIdService;
+const getTurnsByUserIdService = (userId) => __awaiter(void 0, void 0, void 0, function* () {
+    const turns = yield data_source_1.TurnModel.find({
+        where: {
+            user: {
+                id: userId,
+            },
+        },
+        relations: {
+            user: true,
+            activity: true,
+        },
+        order: {
+            date: "ASC",
+            time: "ASC",
+        },
+    });
+    return turns;
+});
+exports.getTurnsByUserIdService = getTurnsByUserIdService;
 const createTurnService = (data) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield data_source_1.UserModel.findOneBy({ id: data.userId });
     if (!user) {

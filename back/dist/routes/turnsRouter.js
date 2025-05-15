@@ -4,6 +4,7 @@ const express_1 = require("express");
 const turnsController_1 = require("../controllers/turnsController");
 const turnsRouter = (0, express_1.Router)();
 turnsRouter.get("/", turnsController_1.getTurnsController);
+turnsRouter.get("/user/:id", turnsController_1.getTurnsByUserIdController);
 turnsRouter.get("/:id", turnsController_1.getTurnsByIdController);
 turnsRouter.post("/schedule", turnsController_1.createTurnController);
 turnsRouter.put("/cancel/:id", turnsController_1.cancelTurnController);

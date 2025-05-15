@@ -91,6 +91,18 @@ export const validate = (fieldName, fieldValue, userData) => {
       }
       break;
 
+    case "activity":
+      if (!fieldValue) {
+        errors.activity = "Debes seleccionar una actividad";
+      }
+      break;
+
+    case "time":
+      if (!fieldValue) {
+        errors.time = "Debes seleccionar un horario";
+      }
+      break;
+
     default:
       break;
   }
