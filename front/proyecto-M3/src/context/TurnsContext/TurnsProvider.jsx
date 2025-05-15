@@ -4,13 +4,15 @@ import { TurnsContext } from "./TurnsContext";
 export const TurnsProvider = ({ children }) => {
   const [turns, setTurns] = useState([]);
 
-  const addTurn = (turn) => {
-    setTurns([...turns, turn]);
+  const updateTurnById = (id, updatedData) => {
+    setTurns((prevTurns) =>
+      prevTurns.map((turn) =>
+        turn.id === id ? { ...turn, ...updatedData } : turn
+      )
+    );
   };
 
-  //Aca puedo crear cancleTurn
-
-  const turnsValue = { turns, addTurn };
+  const turnsValue = { turns, setTurns, updateTurnById };
 
   return (
     <TurnsContext.Provider value={turnsValue}>{children}</TurnsContext.Provider>

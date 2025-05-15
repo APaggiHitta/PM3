@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
+import axios from "axios";
 import styles from "./Turn.module.css";
+import { TurnsContext } from "../../context/TurnsContext/TurnsContext";
 
-const Turn = ({ date, description, time, status }) => {
+const Turn = ({ id, date, description, time, status }) => {
+  const { updateTurnById } = useContext(TurnsContext);
+
+  const handleCancel = async () => {
+    try {
+      const res = await axios.put(`http://localhost:3000/turns/cancel/${id}`);
+      updateTurnById(id, res.data); // Actualiza el contexto con el nuevo estado del turno
+    } catch (error) {
+      console.error("Error al cancelar el turno:", error);
+    }
+  };
+
   return (
     <div className={styles.card}>
       <h2>{description}</h2>
@@ -14,7 +27,11 @@ const Turn = ({ date, description, time, status }) => {
       >
         {status === "active" ? "Activo" : "Cancelado"}
       </p>
-      <button disabled={status !== "active"} className={styles.cancelButton}>
+      <button
+        disabled={status !== "active"}
+        className={styles.cancelButton}
+        onClick={handleCancel}
+      >
         Cancelar
       </button>
     </div>

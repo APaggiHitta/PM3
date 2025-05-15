@@ -1,5 +1,6 @@
 import styles from "../../styles/Form.module.css";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { validate } from "../../helpers/validate";
 import axios from "axios";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
@@ -33,6 +34,8 @@ const Register = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [registeredName, setRegisteredName] = useState("");
+
+  const navigate = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -141,8 +144,11 @@ const Register = () => {
         {showModal && (
           <ModalWindow
             title={`¡Bienvenido ${registeredName}!`}
-            message="Tu usuario se ha dado de alta en nuestra base de datos."
-            onClose={() => setShowModal(false)}
+            message="Tu usuario se ha dado de alta en nuestra base de datos. Ingresa tus credenciales en el Login!"
+            onClose={() => {
+              setShowModal(false);
+              navigate("/login");
+            }}
           />
         )}
 

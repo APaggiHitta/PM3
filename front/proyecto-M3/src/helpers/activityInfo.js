@@ -10,33 +10,33 @@ const activityInfo = [
     image: imgPesca,
     price: "USD 1000",
     description:
-      "Pesca deportiva en el río Amazonas con guías locales expertos.",
+      "Pesca deportiva en el Amazonas con guías locales y paisajes únicos.",
   },
   {
     id: 2,
     image: imgCanotaje,
     price: "USD 800",
-    description: "Aventura en canoa por el laberinto de ríos del Amazonas.",
+    description: "Navega en canoa por ríos escondidos y selva viva.",
   },
   {
     id: 3,
     image: imgRafting,
     price: "USD 600",
     description:
-      "Si buscas adrenalina, atrévete a desafiar los rápidos del Amazonas colombiano.",
+      "Desafía los rápidos del Amazonas y sentí la adrenalina al máximo.",
   },
   {
     id: 4,
     image: imgCamping,
     price: "USD 900",
-    description: "Acampa tres días en plena jungla con guías expertos.",
+    description: "Tres días de campamento en la selva con guías expertos.",
   },
   {
     id: 5,
     image: imgCircuito,
     price: "USD 800",
     description:
-      "Recorre asentamientos indígenas, explora sus costumbres y empápate en la cultura de la zona.",
+      "Conectate con culturas indígenas y viví sus tradiciones auténticas.",
   },
 ];
 
