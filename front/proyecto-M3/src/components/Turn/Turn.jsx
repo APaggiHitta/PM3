@@ -1,19 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import styles from "./Turn.module.css";
 import { TurnsContext } from "../../context/TurnsContext/TurnsContext";
+import ModalWindow from "../ModalWindow/ModalWindow";
 
 const Turn = ({ id, date, description, time, status }) => {
   const { updateTurnById } = useContext(TurnsContext);
+  const [showModal, setShowModal] = useState(false);
 
   const handleCancel = async () => {
     try {
       const res = await axios.put(`http://localhost:3000/turns/cancel/${id}`);
-      updateTurnById(id, res.data); // Actualiza el contexto con el nuevo estado del turno
+      updateTurnById(id, res.data);
     } catch (error) {
       console.error("Error al cancelar el turno:", error);
+    } finally {
+      setShowModal(false);
     }
   };
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   return (
     <div className={styles.card}>
@@ -30,10 +37,22 @@ const Turn = ({ id, date, description, time, status }) => {
       <button
         disabled={status !== "active"}
         className={styles.cancelButton}
-        onClick={handleCancel}
+        onClick={openModal}
       >
         Cancelar
       </button>
+
+      {showModal && (
+        <ModalWindow
+          title="¿Seguro que querés cancelar?"
+          message="😢 ¡Nos entristece saber que querés cancelar esta aventura! ¿Estás seguro de que no querés vivir esta experiencia única?"
+          showConfirm={true}
+          onConfirm={handleCancel}
+          onClose={closeModal}
+          confirmText="Sí, cancelar"
+          cancelText="No, mantener"
+        />
+      )}
     </div>
   );
 };
