@@ -23,6 +23,7 @@ const AddTurn = ({ refreshTurns }) => {
   const [showModal, setShowModal] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalMessage, setModalMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const isFormValid = Object.values(errors).every((err) => err === "");
 
@@ -66,23 +67,30 @@ const AddTurn = ({ refreshTurns }) => {
       status: "active",
     };
 
+    setIsLoading(true); // Mostrar modal de carga
+
     try {
       await axios.post("http://localhost:3000/turns/schedule", turnPayload);
 
       setModalTitle("¡Tu aventura está confirmada!");
       setModalMessage(
-        "Has agendado con éxito tu próxima experiencia en el Amazonas. ¡Prepárate para una jornada inolvidable!"
+        `Has agendado con éxito tu próxima experiencia en el Amazonas. Te hemos enviado un correo a ${user.email} ¡Prepárate para una jornada inolvidable!`
       );
       setShowModal(true);
-
       if (refreshTurns) refreshTurns();
-
       setTurnData({ activity: "", date: "", time: "" });
+      setErrors({
+        activity: "Debes elegir una actividad",
+        date: "Debes elegir una fecha",
+        time: "Debes elegir una hora",
+      });
     } catch (error) {
       console.error("Error al agendar el turno:", error);
       setModalTitle("Error al agendar turno");
       setModalMessage("Por favor, intenta nuevamente más tarde.");
       setShowModal(true);
+    } finally {
+      setIsLoading(false); // Ocultar modal de carga
     }
   };
 
@@ -107,6 +115,14 @@ const AddTurn = ({ refreshTurns }) => {
             message={modalMessage}
             buttonText="¡Estoy listo!"
             onClose={handleCloseModal}
+          />
+        )}
+
+        {isLoading && (
+          <ModalWindow
+            title="Estamos creando tu reserva..."
+            message="Por favor, espera unos segundos"
+            loading={true}
           />
         )}
 

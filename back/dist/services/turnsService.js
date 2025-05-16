@@ -105,7 +105,9 @@ var createTurnService = function (data) { return __awaiter(void 0, void 0, void 
     var user, activity, turn;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, data_source_1.UserModel.findOneBy({ id: data.userId })];
+            case 0:
+                console.log("holanda");
+                return [4 /*yield*/, data_source_1.UserModel.findOneBy({ id: data.userId })];
             case 1:
                 user = _a.sent();
                 if (!user) {
@@ -125,7 +127,16 @@ var createTurnService = function (data) { return __awaiter(void 0, void 0, void 
                     activity: activity,
                 });
                 return [4 /*yield*/, data_source_1.TurnModel.save(turn)];
-            case 3: return [2 /*return*/, _a.sent()];
+            case 3:
+                _a.sent();
+                // await sendTurnConfirmationEmail(
+                //   user.email,
+                //   user,
+                //   activity,
+                //   new Date(data.date),
+                //   data.time
+                // );
+                return [2 /*return*/, turn];
         }
     });
 }); };

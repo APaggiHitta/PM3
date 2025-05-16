@@ -2,6 +2,7 @@ import ITurn from "../interfaces/ITurn";
 import TurnDto from "../dtos/TurnDto";
 import { TurnModel, UserModel, ActivityModel } from "../config/data-source";
 import { Turn } from "../entities/Turn";
+import { sendTurnConfirmationEmail } from "./emailService";
 
 let turns: ITurn[] = [];
 let id = 1;
@@ -68,7 +69,17 @@ export const createTurnService = async (data: TurnDto) => {
     activity: activity,
   });
 
-  return await TurnModel.save(turn);
+  await TurnModel.save(turn);
+
+  await sendTurnConfirmationEmail(
+    user.email,
+    user,
+    activity,
+    new Date(data.date),
+    data.time
+  );
+
+  return turn;
 };
 
 export const cancelTurnService = async (id: number): Promise<Turn> => {

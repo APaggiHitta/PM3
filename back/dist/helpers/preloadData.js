@@ -74,10 +74,10 @@ var preloadActivities = [
 var preloadUsers = [
     {
         name: "Alvaro Paggi",
-        email: "apaggi@mail.com",
+        email: "alvaropaggi@gmail.com",
         birthdate: new Date("2010-03-12"),
         nDni: 9384938,
-        username: "apaggi@mail.com",
+        username: "alvaropaggi@gmail.com",
         password: "holanda",
     },
 ];

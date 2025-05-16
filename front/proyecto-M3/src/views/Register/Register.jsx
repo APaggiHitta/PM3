@@ -5,55 +5,53 @@ import { validate } from "../../helpers/validate";
 import axios from "axios";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 
+const initialUserData = {
+  username: "",
+  userlastname: "",
+  email: "",
+  birthdate: "",
+  nDni: "",
+  photo: "",
+  password1: "",
+  password2: "",
+  acceptPolicies: false,
+};
+
+const initialErrors = {
+  username: "Nombre del usuario es obligatorio",
+  userlastname: "Apellido del usuario es obligatorio",
+  email: "E-Mail del usuario es obligatorio",
+  birthdate: "Fecha de nacimiento del usuario es obligatoria",
+  nDni: "Número de documento del usuario es obligatorio (sin puntos ni guiones)",
+  password1: "Se debe ingresar una contraseña",
+  password2: "Se debe repetir la contraseña",
+  acceptPolicies: "Debes aceptar nuestras Políticas para continuar",
+};
+
 const Register = () => {
-  const [userData, setUserData] = useState({
-    username: "",
-    userlastname: "",
-    email: "",
-    birthdate: "",
-    nDni: "",
-    photo: "",
-    password1: "",
-    password2: "",
-    acceptPolicies: false,
-  });
-
-  const [errors, setErrors] = useState({
-    username: "Nombre del usuario es obligatorio",
-    userlastname: "Apellido del usuario es obligatorio",
-    email: "E-Mail del usuario es obligatorio",
-    birthdate: "Fecha de nacimiento del usuario es obligatoria",
-    nDni: "Número de documento del usuario es obligatorio (sin puntos ni guiones)",
-    password1: "Se debe ingresar una contraseña",
-    password2: "Se debe repetir la contraseña",
-    acceptPolicies: "Debes aceptar nuestras Políticas para continuar",
-  });
-
+  const [userData, setUserData] = useState(initialUserData);
+  const [errors, setErrors] = useState(initialErrors);
   const [isRegistered, setIsRegistered] = useState(false);
-
   const [showModal, setShowModal] = useState(false);
-
   const [registeredName, setRegisteredName] = useState("");
-
   const navigate = useNavigate();
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value, type, checked, files } = event.target;
+    const fieldValue =
+      type === "checkbox" ? checked : name === "photo" ? files[0] : value;
 
-    // Actualizar el estado de los datos del usuario
     const updatedData = {
       ...userData,
-      [name]: value,
+      [name]: fieldValue,
     };
 
     setUserData(updatedData);
 
-    // Validar solo ese campo y pasar userData completo para comparar contraseñas
-    const fieldError = validate(name, value, updatedData);
-
+    const fieldError = validate(name, fieldValue, updatedData);
     setErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: fieldError[name] || "", // Si no hay error, lo borra
+      [name]: fieldError[name] || "",
     }));
   };
 
@@ -66,7 +64,6 @@ const Register = () => {
     const fullName = `${formatName(userData.username)} ${formatName(
       userData.userlastname
     )}`;
-
     const payload = {
       name: fullName,
       email: userData.email,
@@ -77,12 +74,7 @@ const Register = () => {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/users/register",
-        payload
-      );
-      console.log("Respuesta del servidor:", response.data);
-
+      await axios.post("http://localhost:3000/users/register", payload);
       setRegisteredName(formatName(userData.username));
       setShowModal(true);
       setIsRegistered(true);
@@ -93,44 +85,20 @@ const Register = () => {
   };
 
   const isFormValid = () => {
-    const hasErrors = Object.values(errors).some((error) => error !== "");
-
-    const requiredFieldsFilled = Object.entries(userData).every(
-      ([key, value]) => {
-        if (key === "photo") return true; // Ignorar campo 'photo'
-        if (typeof value === "boolean") return value; // checkbox (debe ser true)
-        return value.toString().trim() !== ""; // campos de texto
-      }
+    return (
+      Object.values(errors).every((e) => e === "") &&
+      Object.entries(userData).every(([key, value]) => {
+        if (key === "photo") return true;
+        if (typeof value === "boolean") return value;
+        return value.toString().trim() !== "";
+      })
     );
-
-    return !hasErrors && requiredFieldsFilled;
   };
 
   useEffect(() => {
     if (isRegistered) {
-      setUserData({
-        username: "",
-        userlastname: "",
-        email: "",
-        birthdate: "",
-        nDni: "",
-        photo: "",
-        password1: "",
-        password2: "",
-        acceptPolicies: false,
-      });
-
-      setErrors({
-        username: "Nombre del usuario es obligatorio",
-        userlastname: "Apellido del usuario es obligatorio",
-        email: "E-Mail del usuario es obligatorio",
-        birthdate: "Fecha de nacimiento del usuario es obligatoria",
-        nDni: "Número de documento del usuario es obligatorio (sin puntos ni guiones)",
-        password1: "Se debe ingresar una contraseña",
-        password2: "Se debe repetir la contraseña",
-        acceptPolicies: "Debes aceptar nuestras Políticas para continuar",
-      });
-
+      setUserData(initialUserData);
+      setErrors(initialErrors);
       setIsRegistered(false);
     }
   }, [isRegistered]);
@@ -223,16 +191,7 @@ const Register = () => {
 
           <div className={styles.inputGroup}>
             <label>Foto (opcional)</label>
-            <input
-              type="file"
-              name="photo"
-              placeholder="Click para subir una foto desde tu dispositivo"
-              onChange={handleInputChange}
-            />
-
-            {errors.photo && (
-              <p className={styles.errorMessage}>{errors.photo}</p>
-            )}
+            <input type="file" name="photo" onChange={handleInputChange} />
           </div>
 
           <div className={styles.inputGroup}>
@@ -263,19 +222,12 @@ const Register = () => {
             )}
           </div>
 
-          <label className={styles.termsConditions} htmlFor="">
+          <label className={styles.termsConditions}>
             <input
               type="checkbox"
               name="acceptPolicies"
               checked={userData.acceptPolicies}
-              onChange={(event) =>
-                handleInputChange({
-                  target: {
-                    name: "acceptPolicies",
-                    value: event.target.checked,
-                  },
-                })
-              }
+              onChange={handleInputChange}
             />
             Acepto los Términos y Condiciones y las Políticas de Privacidad
           </label>
