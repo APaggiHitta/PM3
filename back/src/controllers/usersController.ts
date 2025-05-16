@@ -34,8 +34,15 @@ export const getUserByIdController = async (req: Request, res: Response) => {
 
 export const createUserController = async (req: Request, res: Response) => {
   try {
-    const newUser: User = await createUserService(req.body);
-    // res.status(201).json(newUser);
+    const photoFilename = req.file ? req.file.filename : undefined;
+
+    // const newUser: User = await createUserService(req.body);
+
+    const newUser: User = await createUserService({
+      ...req.body,
+      photo: photoFilename,
+    });
+
     res.status(201).json({ message: "Usuario creado correctamente" });
   } catch (error) {
     res.status(400).json({ error: "Error al crear el usuario." });
@@ -61,6 +68,7 @@ export const userLoginController = async (req: Request, res: Response) => {
         email: user.email,
         birthdate: user.birthdate,
         nDni: user.nDni,
+        photo: user.photo,
       },
     });
     return;

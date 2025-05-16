@@ -39,6 +39,10 @@ var User = /** @class */ (function () {
         __metadata("design:type", Number)
     ], User.prototype, "nDni", void 0);
     __decorate([
+        (0, typeorm_1.Column)({ nullable: true }),
+        __metadata("design:type", String)
+    ], User.prototype, "photo", void 0);
+    __decorate([
         (0, typeorm_1.OneToMany)(function () { return Turn_1.Turn; }, function (turn) { return turn.user; }),
         __metadata("design:type", Array)
     ], User.prototype, "turns", void 0);

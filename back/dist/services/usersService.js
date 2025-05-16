@@ -84,6 +84,7 @@ var createUserService = function (userData) { return __awaiter(void 0, void 0, v
                     email: userData.email,
                     birthdate: userData.birthdate,
                     nDni: userData.nDni,
+                    photo: userData.photo,
                 });
                 return [4 /*yield*/, data_source_1.UserModel.save(user)];
             case 1:

@@ -61,10 +61,21 @@ const NavBar = () => {
                 </Link>
               </div>
               <div className={styles.avatarContainer}>
-                <img
+                {/* <img
                   src={userAvatar}
                   alt="Avatar usuario"
                   className={styles.avatarImage}
+                /> */}
+                <img
+                  src={
+                    user.photo
+                      ? `http://localhost:3000/uploads/${user.photo}`
+                      : userAvatar
+                  }
+                  alt="Avatar usuario"
+                  className={
+                    user.photo ? styles.avatarImageFull : styles.avatarImage
+                  }
                 />
               </div>
             </div>

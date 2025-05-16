@@ -44,15 +44,23 @@ var nodemailer_1 = __importDefault(require("nodemailer"));
 var dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 var sendTurnConfirmationEmail = function (toEmail, user, activity, date, time) { return __awaiter(void 0, void 0, void 0, function () {
-    var transporter, mailOptions;
+    var actualDate, formattedDate, transporter, mailOptions, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("Iniciando envío de email..."); // <-- nuevo log
+                _a.trys.push([0, 2, , 3]);
                 if (!toEmail || !user || !activity) {
                     throw new Error("Datos incompletos para enviar el email");
                 }
-                console.log(process.env.EMAIL_USER);
+                actualDate = date instanceof Date ? date : new Date(date);
+                formattedDate = actualDate
+                    .toLocaleDateString("es-ES", {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                })
+                    .replace(",", "");
                 transporter = nodemailer_1.default.createTransport({
                     service: "gmail",
                     auth: {
@@ -64,12 +72,17 @@ var sendTurnConfirmationEmail = function (toEmail, user, activity, date, time) {
                     from: "\"Amazing Amazonas Tours\" <".concat(process.env.EMAIL_USER, ">"),
                     to: toEmail,
                     subject: "¡Tu reserva está confirmada!",
-                    html: "\n      <h2>Hola ".concat(user.name, ",</h2>\n      <p>Gracias por reservar con Amazing Amazonas Tours.</p>\n      <p><strong>Actividad:</strong> ").concat(activity.name, "</p>\n      <p><strong>Fecha:</strong> ").concat(date.toLocaleDateString(), "</p>\n      <p><strong>Hora:</strong> ").concat(time, "</p>\n      <p>\u00A1Te esperamos para vivir una experiencia inolvidable en el Amazonas!</p>\n    "),
+                    html: "\n  <!DOCTYPE html>\n  <html lang=\"es\">\n    <head>\n      <meta charset=\"UTF-8\" />\n      <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n      <title>Confirmaci\u00F3n de reserva</title>\n      <style>\n        body {\n          margin: 0;\n          padding: 0;\n          background-color: #f4f4f4;\n          font-family: Arial, sans-serif;\n        }\n        .email-container {\n          max-width: 600px;\n          margin: 0 auto;\n          background-color: #ffffff;\n          border-radius: 8px;\n          overflow: hidden;\n          box-shadow: 0 0 10px rgba(0,0,0,0.1);\n        }\n        .header {\n          background-color: #b67b38;\n          color: white;\n          padding: 20px;\n          text-align: center;\n          font-size: 24px;\n          font-weight: bold;\n        }\n        .body {\n          padding: 30px;\n          color: #333333;\n          font-size: 16px;\n        }\n        .body h2 {\n          color: #b67b38;\n        }\n        .button {\n          display: inline-block;\n          background-color: #b67b38;\n          color: white;\n          text-decoration: none;\n          padding: 12px 20px;\n          margin-top: 20px;\n          border-radius: 6px;\n          font-weight: bold;\n        }\n        .footer {\n          background-color: #eee;\n          text-align: center;\n          padding: 20px;\n          font-size: 12px;\n          color: #777;\n        }\n      </style>\n    </head>\n    <body>\n      <div class=\"email-container\">\n        <div class=\"header\">\n          Amazing Amazonas Tours\n        </div>\n\n        <div class=\"body\">\n          <h2>\u00A1Hola ".concat(user.name.split(" ")[0], "!</h2>\n          <p>\n            Tu reserva ha sido confirmada con \u00E9xito para la actividad <strong>").concat(activity.name, "</strong> el d\u00EDa <strong>").concat(formattedDate, "</strong> a las <strong>").concat(time, "</strong>.\n          </p>\n          <p>\u00A1Gracias por confiar en nosotros! Prep\u00E1rate para una experiencia inolvidable en el Amazonas.</p>\n\n          <a href=\"#\" class=\"button\">Ver mi reserva</a>\n        </div>\n\n        <div class=\"footer\">\n          \u00A9 2025 Amazing Amazonas Tours. Todos los derechos reservados.<br />\n          <a href=\"mailto:contacto@amazonastours.com\">contacto@amazonastours.com</a>\n        </div>\n      </div>\n    </body>\n  </html>\n"),
                 };
                 return [4 /*yield*/, transporter.sendMail(mailOptions)];
             case 1:
                 _a.sent();
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                console.error("Error al enviar el correo:", error_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

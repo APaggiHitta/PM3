@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.cancelTurnService = exports.createTurnService = exports.getTurnsByUserIdService = exports.getTurnsByIdService = exports.getTurnsService = void 0;
 var data_source_1 = require("../config/data-source");
+var emailService_1 = require("./emailService");
 var turns = [];
 var id = 1;
 var getTurnsService = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -105,9 +106,7 @@ var createTurnService = function (data) { return __awaiter(void 0, void 0, void 
     var user, activity, turn;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                console.log("holanda");
-                return [4 /*yield*/, data_source_1.UserModel.findOneBy({ id: data.userId })];
+            case 0: return [4 /*yield*/, data_source_1.UserModel.findOneBy({ id: data.userId })];
             case 1:
                 user = _a.sent();
                 if (!user) {
@@ -129,13 +128,9 @@ var createTurnService = function (data) { return __awaiter(void 0, void 0, void 
                 return [4 /*yield*/, data_source_1.TurnModel.save(turn)];
             case 3:
                 _a.sent();
-                // await sendTurnConfirmationEmail(
-                //   user.email,
-                //   user,
-                //   activity,
-                //   new Date(data.date),
-                //   data.time
-                // );
+                return [4 /*yield*/, (0, emailService_1.sendTurnConfirmationEmail)(user.email, user, activity, new Date(data.date), data.time)];
+            case 4:
+                _a.sent();
                 return [2 /*return*/, turn];
         }
     });

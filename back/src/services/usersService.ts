@@ -30,6 +30,7 @@ export const createUserService = async (userData: UserDto): Promise<User> => {
     email: userData.email,
     birthdate: userData.birthdate,
     nDni: userData.nDni,
+    photo: userData.photo,
   });
 
   const newUser = await UserModel.save(user);

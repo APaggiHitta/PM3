@@ -58,23 +58,58 @@ const Register = () => {
   const formatName = (text) =>
     text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 
+  // const handleOnSubmit = async (event) => {
+  //   event.preventDefault();
+
+  //   const fullName = `${formatName(userData.username)} ${formatName(
+  //     userData.userlastname
+  //   )}`;
+  //   const payload = {
+  //     name: fullName,
+  //     email: userData.email,
+  //     birthdate: userData.birthdate,
+  //     nDni: Number(userData.nDni),
+  //     username: userData.email,
+  //     password: userData.password1,
+  //   };
+
+  //   try {
+  //     await axios.post("http://localhost:3000/users/register", payload);
+  //     setRegisteredName(formatName(userData.username));
+  //     setShowModal(true);
+  //     setIsRegistered(true);
+  //   } catch (error) {
+  //     console.error("Error al registrar usuario:", error);
+  //     alert("Hubo un error al registrar el usuario");
+  //   }
+  // };
+
   const handleOnSubmit = async (event) => {
     event.preventDefault();
 
     const fullName = `${formatName(userData.username)} ${formatName(
       userData.userlastname
     )}`;
-    const payload = {
-      name: fullName,
-      email: userData.email,
-      birthdate: userData.birthdate,
-      nDni: Number(userData.nDni),
-      username: userData.email,
-      password: userData.password1,
-    };
+
+    const formData = new FormData();
+
+    formData.append("name", fullName);
+    formData.append("email", userData.email);
+    formData.append("birthdate", userData.birthdate);
+    formData.append("nDni", Number(userData.nDni).toString());
+    formData.append("username", userData.email);
+    formData.append("password", userData.password1);
+
+    if (userData.photo) {
+      formData.append("photo", userData.photo);
+    }
 
     try {
-      await axios.post("http://localhost:3000/users/register", payload);
+      await axios.post("http://localhost:3000/users/register", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       setRegisteredName(formatName(userData.username));
       setShowModal(true);
       setIsRegistered(true);

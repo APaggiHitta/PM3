@@ -5,5 +5,6 @@ interface UserDto {
   nDni: number;
   username: string;
   password: string;
+  photo?: string;
 }
 export default UserDto;
