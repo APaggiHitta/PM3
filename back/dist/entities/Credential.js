@@ -10,30 +10,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Credential = void 0;
-const typeorm_1 = require("typeorm");
-const User_1 = require("./User");
-let Credential = class Credential {
-};
+var typeorm_1 = require("typeorm");
+var User_1 = require("./User");
+var Credential = /** @class */ (function () {
+    function Credential() {
+    }
+    __decorate([
+        (0, typeorm_1.PrimaryGeneratedColumn)(),
+        __metadata("design:type", Number)
+    ], Credential.prototype, "id", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", String)
+    ], Credential.prototype, "username", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", String)
+    ], Credential.prototype, "password", void 0);
+    __decorate([
+        (0, typeorm_1.OneToOne)(function () { return User_1.User; }, function (user) { return user.credential; }),
+        (0, typeorm_1.JoinColumn)(),
+        __metadata("design:type", User_1.User)
+    ], Credential.prototype, "user", void 0);
+    Credential = __decorate([
+        (0, typeorm_1.Entity)({
+            name: "credentials",
+        })
+    ], Credential);
+    return Credential;
+}());
 exports.Credential = Credential;
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], Credential.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Credential.prototype, "username", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Credential.prototype, "password", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => User_1.User, (user) => user.credential),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", User_1.User)
-], Credential.prototype, "user", void 0);
-exports.Credential = Credential = __decorate([
-    (0, typeorm_1.Entity)({
-        name: "credentials",
-    })
-], Credential);

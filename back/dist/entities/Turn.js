@@ -10,42 +10,45 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Turn = void 0;
-const typeorm_1 = require("typeorm");
-const User_1 = require("./User");
-const Activity_1 = require("./Activity");
-let Turn = class Turn {
-};
+var typeorm_1 = require("typeorm");
+var User_1 = require("./User");
+var Activity_1 = require("./Activity");
+var Turn = /** @class */ (function () {
+    function Turn() {
+    }
+    __decorate([
+        (0, typeorm_1.PrimaryGeneratedColumn)(),
+        __metadata("design:type", Number)
+    ], Turn.prototype, "id", void 0);
+    __decorate([
+        (0, typeorm_1.Column)({
+            type: "date",
+        }),
+        __metadata("design:type", Date)
+    ], Turn.prototype, "date", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", String)
+    ], Turn.prototype, "time", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", String)
+    ], Turn.prototype, "status", void 0);
+    __decorate([
+        (0, typeorm_1.ManyToOne)(function () { return User_1.User; }, function (user) { return user.turns; }),
+        (0, typeorm_1.JoinColumn)({ name: "user_id" }),
+        __metadata("design:type", User_1.User)
+    ], Turn.prototype, "user", void 0);
+    __decorate([
+        (0, typeorm_1.ManyToOne)(function () { return Activity_1.Activity; }, function (activity) { return activity.turns; }),
+        (0, typeorm_1.JoinColumn)({ name: "activity_id" }),
+        __metadata("design:type", Activity_1.Activity)
+    ], Turn.prototype, "activity", void 0);
+    Turn = __decorate([
+        (0, typeorm_1.Entity)({
+            name: "turns",
+        })
+    ], Turn);
+    return Turn;
+}());
 exports.Turn = Turn;
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], Turn.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.Column)({
-        type: "date",
-    }),
-    __metadata("design:type", Date)
-], Turn.prototype, "date", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Turn.prototype, "time", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Turn.prototype, "status", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => User_1.User, (user) => user.turns),
-    (0, typeorm_1.JoinColumn)({ name: "user_id" }),
-    __metadata("design:type", User_1.User)
-], Turn.prototype, "user", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => Activity_1.Activity, (activity) => activity.turns),
-    (0, typeorm_1.JoinColumn)({ name: "activity_id" }),
-    __metadata("design:type", Activity_1.Activity)
-], Turn.prototype, "activity", void 0);
-exports.Turn = Turn = __decorate([
-    (0, typeorm_1.Entity)({
-        name: "turns",
-    })
-], Turn);

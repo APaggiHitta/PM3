@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = require("express");
-const turnsController_1 = require("../controllers/turnsController");
-const turnsRouter = (0, express_1.Router)();
+var express_1 = require("express");
+var turnsController_1 = require("../controllers/turnsController");
+var turnsRouter = (0, express_1.Router)();
 turnsRouter.get("/", turnsController_1.getTurnsController);
 turnsRouter.get("/user/:id", turnsController_1.getTurnsByUserIdController);
 turnsRouter.get("/:id", turnsController_1.getTurnsByIdController);

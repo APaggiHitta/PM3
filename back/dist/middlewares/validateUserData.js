@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.validateUserData = void 0;
-const validateUserData = (req, res, next) => {
-    const { name, email, birthdate, nDni, username, password } = req.body;
+var validateUserData = function (req, res, next) {
+    var _a = req.body, name = _a.name, email = _a.email, birthdate = _a.birthdate, nDni = _a.nDni, username = _a.username, password = _a.password;
     if (!name || !email || !birthdate || !nDni || !username || !password) {
         res.status(400).json({ message: "Faltan completar campos" });
         return;

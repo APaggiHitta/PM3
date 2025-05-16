@@ -10,25 +10,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Activity = void 0;
-const typeorm_1 = require("typeorm");
-const Turn_1 = require("./Turn");
-let Activity = class Activity {
-};
+var typeorm_1 = require("typeorm");
+var Turn_1 = require("./Turn");
+var Activity = /** @class */ (function () {
+    function Activity() {
+    }
+    __decorate([
+        (0, typeorm_1.PrimaryGeneratedColumn)(),
+        __metadata("design:type", Number)
+    ], Activity.prototype, "id", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", String)
+    ], Activity.prototype, "name", void 0);
+    __decorate([
+        (0, typeorm_1.OneToMany)(function () { return Turn_1.Turn; }, function (turn) { return turn.activity; }),
+        __metadata("design:type", Array)
+    ], Activity.prototype, "turns", void 0);
+    Activity = __decorate([
+        (0, typeorm_1.Entity)({
+            name: "activities",
+        })
+    ], Activity);
+    return Activity;
+}());
 exports.Activity = Activity;
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], Activity.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Activity.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => Turn_1.Turn, (turn) => turn.activity),
-    __metadata("design:type", Array)
-], Activity.prototype, "turns", void 0);
-exports.Activity = Activity = __decorate([
-    (0, typeorm_1.Entity)({
-        name: "activities",
-    })
-], Activity);

@@ -1,11 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActivityModel = exports.CredentialModel = exports.TurnModel = exports.UserModel = exports.AppDataSource = void 0;
-const typeorm_1 = require("typeorm");
-const Credential_1 = require("../entities/Credential");
-const Turn_1 = require("../entities/Turn");
-const User_1 = require("../entities/User");
-const Activity_1 = require("../entities/Activity");
+var typeorm_1 = require("typeorm");
+var Credential_1 = require("../entities/Credential");
+var Turn_1 = require("../entities/Turn");
+var User_1 = require("../entities/User");
+var Activity_1 = require("../entities/Activity");
 exports.AppDataSource = new typeorm_1.DataSource({
     type: "postgres",
     host: "localhost",

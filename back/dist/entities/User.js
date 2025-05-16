@@ -10,44 +10,47 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
-const typeorm_1 = require("typeorm");
-const Turn_1 = require("./Turn");
-const Credential_1 = require("./Credential");
-let User = class User {
-};
+var typeorm_1 = require("typeorm");
+var Turn_1 = require("./Turn");
+var Credential_1 = require("./Credential");
+var User = /** @class */ (function () {
+    function User() {
+    }
+    __decorate([
+        (0, typeorm_1.PrimaryGeneratedColumn)(),
+        __metadata("design:type", Number)
+    ], User.prototype, "id", void 0);
+    __decorate([
+        (0, typeorm_1.Column)({
+            length: 100,
+        }),
+        __metadata("design:type", String)
+    ], User.prototype, "name", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", String)
+    ], User.prototype, "email", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", Date)
+    ], User.prototype, "birthdate", void 0);
+    __decorate([
+        (0, typeorm_1.Column)(),
+        __metadata("design:type", Number)
+    ], User.prototype, "nDni", void 0);
+    __decorate([
+        (0, typeorm_1.OneToMany)(function () { return Turn_1.Turn; }, function (turn) { return turn.user; }),
+        __metadata("design:type", Array)
+    ], User.prototype, "turns", void 0);
+    __decorate([
+        (0, typeorm_1.OneToOne)(function () { return Credential_1.Credential; }, function (credential) { return credential.user; }),
+        __metadata("design:type", Credential_1.Credential)
+    ], User.prototype, "credential", void 0);
+    User = __decorate([
+        (0, typeorm_1.Entity)({
+            name: "users",
+        })
+    ], User);
+    return User;
+}());
 exports.User = User;
-__decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)(),
-    __metadata("design:type", Number)
-], User.prototype, "id", void 0);
-__decorate([
-    (0, typeorm_1.Column)({
-        length: 100,
-    }),
-    __metadata("design:type", String)
-], User.prototype, "name", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "email", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Date)
-], User.prototype, "birthdate", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], User.prototype, "nDni", void 0);
-__decorate([
-    (0, typeorm_1.OneToMany)(() => Turn_1.Turn, (turn) => turn.user),
-    __metadata("design:type", Array)
-], User.prototype, "turns", void 0);
-__decorate([
-    (0, typeorm_1.OneToOne)(() => Credential_1.Credential, (credential) => credential.user),
-    __metadata("design:type", Credential_1.Credential)
-], User.prototype, "credential", void 0);
-exports.User = User = __decorate([
-    (0, typeorm_1.Entity)({
-        name: "users",
-    })
-], User);

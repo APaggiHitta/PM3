@@ -24,6 +24,11 @@ const About = () => {
           <strong>no se realizan los domingos</strong> para garantizar el
           descanso del equipo y el respeto por las comunidades locales.
         </p>
+        <p className={styles.importantNote}>
+          📅 <strong>A tener en cuenta:</strong> solo podrás agendar una
+          actividad <strong>a partir de mañana</strong>. No es posible reservar
+          actividades para el mismo día.
+        </p>
       </section>
 
       <section className={styles.section}>
