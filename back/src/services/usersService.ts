@@ -25,6 +25,12 @@ export const getUsersByIdService = async (id: number): Promise<User | null> => {
 };
 
 export const createUserService = async (userData: UserDto): Promise<User> => {
+  const existingUser = await UserModel.findOneBy({ email: userData.email });
+
+  if (existingUser) {
+    throw new Error("Ya existe un usuario con este mail registrado!");
+  }
+
   const user = UserModel.create({
     name: userData.name,
     email: userData.email,

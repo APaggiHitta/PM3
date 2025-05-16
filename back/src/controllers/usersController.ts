@@ -36,16 +36,16 @@ export const createUserController = async (req: Request, res: Response) => {
   try {
     const photoFilename = req.file ? req.file.filename : undefined;
 
-    // const newUser: User = await createUserService(req.body);
-
     const newUser: User = await createUserService({
       ...req.body,
       photo: photoFilename,
     });
 
     res.status(201).json({ message: "Usuario creado correctamente" });
-  } catch (error) {
-    res.status(400).json({ error: "Error al crear el usuario." });
+  } catch (error: any) {
+    res
+      .status(400)
+      .json({ error: error.message || "Error al crear el usuario." });
   }
 };
 
