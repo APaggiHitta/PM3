@@ -28,7 +28,9 @@ const NavBar = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <img className={styles.logo} src={logoAAT} alt="" />
+      <Link to={"/home"}>
+        <img className={styles.logo} src={logoAAT} alt="" />
+      </Link>
       <div className={`${styles.menus} ${menuOpen ? styles.open : ""}`}>
         <Link to={"/home"} className={styles.navLink}>
           <Menu name={"Home"}></Menu>
