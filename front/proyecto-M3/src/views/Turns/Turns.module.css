@@ -65,3 +65,34 @@
   margin: 20px auto;
   max-width: 600px;
 }
+.filterContainer {
+  display: flex;
+  justify-content: center;
+  margin: 1rem auto 2rem auto;
+  border: 1px solid #b67b38;
+  border-radius: 30px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.filterButton {
+  flex: 1;
+  min-width: 100px; /* Fuerza un ancho mínimo igual para todos */
+  text-align: center;
+  background-color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  color: #b67b38;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filterButton:hover {
+  background-color: #f5e3d0;
+}
+
+.active {
+  background-color: #b67b38;
+  color: white;
+}

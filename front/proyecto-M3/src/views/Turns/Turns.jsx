@@ -1,4 +1,4 @@
-import { useEffect, useContext, useCallback } from "react";
+import { useEffect, useContext, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -14,14 +14,14 @@ const Turns = () => {
   const { turns, setTurns } = useContext(TurnsContext);
   const navigate = useNavigate();
 
-  // Redirige si no hay usuario
+  const [filter, setFilter] = useState("Todas");
+
   useEffect(() => {
     if (!user) {
       navigate("/home");
     }
   }, [user, navigate]);
 
-  // Carga turnos del usuario
   const fetchTurns = useCallback(() => {
     if (user) {
       axios
@@ -35,32 +35,66 @@ const Turns = () => {
     fetchTurns();
   }, [fetchTurns]);
 
+  const filteredTurns = turns.filter((turn) => {
+    if (filter === "Todas") return true;
+    if (filter === "Activas") return turn.status === "active";
+    if (filter === "Canceladas") return turn.status === "cancelled";
+    return true;
+  });
+
   return (
     <div>
       <h1 className={styles.title}>VACACIONES Y AVENTURAS EN EL AMAZONAS</h1>
       <AddTurn refreshTurns={fetchTurns} />
       <h2 className={styles.subtitle}>ESTAS SON TUS PRÓXIMAS ACTIVIDADES</h2>
 
-      {turns.length === 0 && (
+      {turns.length === 0 ? (
         <p className={styles.noTurnsMessage}>
           Aún no has agendado ninguna actividad. ¡Explora nuestras aventuras y
           programá tu primera experiencia inolvidable en la selva amazónica!
         </p>
-      )}
-
-      <div className={styles.turnsContainer}>
-        {turns.map((turn) => (
-          <div className={styles.turnCard} key={turn.id}>
-            <Turn
-              id={turn.id} // importante para luego cancelar
-              description={turn.activity.name}
-              date={turn.date}
-              time={turn.time}
-              status={turn.status}
-            />
+      ) : (
+        <>
+          {/* Filtros solo si hay turnos */}
+          <div className={styles.filterContainer}>
+            {["Todas", "Activas", "Canceladas"].map((type) => (
+              <button
+                key={type}
+                onClick={() => setFilter(type)}
+                className={
+                  filter === type
+                    ? `${styles.filterButton} ${styles.active}`
+                    : styles.filterButton
+                }
+              >
+                {type}
+              </button>
+            ))}
           </div>
-        ))}
-      </div>
+
+          {/* Si no hay turnos para el filtro seleccionado */}
+          {filteredTurns.length === 0 && (
+            <p className={styles.noTurnsMessage}>
+              No hay actividades {filter.toLowerCase()} por el momento.
+            </p>
+          )}
+
+          {/* Renderizar tarjetas filtradas */}
+          <div className={styles.turnsContainer}>
+            {filteredTurns.map((turn) => (
+              <div className={styles.turnCard} key={turn.id}>
+                <Turn
+                  id={turn.id}
+                  description={turn.activity.name}
+                  date={turn.date}
+                  time={turn.time}
+                  status={turn.status}
+                />
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
