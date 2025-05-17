@@ -1,14 +1,13 @@
 import styles from "../../styles/Form.module.css";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { validate } from "../../helpers/validate";
-import axios from "axios";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import { Link, useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext/UserContext";
+import { useLogin } from "../../hooks/useLogin";
 
 const Login = () => {
-  const { login } = useContext(UserContext);
   const navigate = useNavigate();
+  const { loginUser, loading, error: loginError } = useLogin();
 
   const [userData, setUserData] = useState({
     email: "",
@@ -23,7 +22,6 @@ const Login = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   const isFormValid = Object.values(errors).every((error) => error === "");
@@ -49,35 +47,23 @@ const Login = () => {
   const handleOnSubmit = async (event) => {
     event.preventDefault();
 
-    const payload = {
-      username: userData.email,
+    const { success, user } = await loginUser({
+      email: userData.email,
       password: userData.password1,
-    };
+    });
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/users/login",
-        payload
-      );
-
-      const user = response.data.user;
-
-      login(user);
-
+    if (success) {
       const firstName = user.name?.split(" ")[0] || "usuario";
       setModalTitle(`Hola ${firstName}`);
       setModalMessage("Bienvenido a las aventuras de tu vida");
       setLoginSuccess(true);
-      setShowModal(true);
-    } catch (error) {
-      console.error("Error al loguear usuario:", error);
+    } else {
       setModalTitle("¡Ups! Algo ha ido mal");
-      setModalMessage(
-        "Revisa que tu usuario y contraseña proporcionados sean correctos."
-      );
+      setModalMessage("Revisa que tu usuario y contraseña sean correctos.");
       setLoginSuccess(false);
-      setShowModal(true);
     }
+
+    setShowModal(true);
   };
 
   const handleCloseModal = () => {
@@ -110,6 +96,10 @@ const Login = () => {
             onClose={handleCloseModal}
           />
         )}
+
+        {loading && <p className={styles.loading}>Cargando...</p>}
+        {loginError && <p className={styles.errorMessage}>{loginError}</p>}
+
         <form onSubmit={handleOnSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label>Usuario (E-Mail)</label>
@@ -140,7 +130,7 @@ const Login = () => {
           <button
             type="submit"
             className={styles.submitButton}
-            disabled={!isFormValid}
+            disabled={!isFormValid || loading}
           >
             Ingresar
           </button>

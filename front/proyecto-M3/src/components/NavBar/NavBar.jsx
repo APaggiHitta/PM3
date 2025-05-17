@@ -77,11 +77,6 @@ const NavBar = () => {
                 </Link>
               </div>
               <div className={styles.avatarContainer}>
-                {/* <img
-                  src={userAvatar}
-                  alt="Avatar usuario"
-                  className={styles.avatarImage}
-                /> */}
                 <img
                   src={
                     user.photo

@@ -2,7 +2,7 @@ import styles from "../../styles/Form.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { validate } from "../../helpers/validate";
-import axios from "axios";
+import { registerUser } from "../../services/authService";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 
 const initialUserData = {
@@ -79,28 +79,15 @@ const Register = () => {
       formData.append("photo", userData.photo);
     }
 
-    try {
-      await axios.post("http://localhost:3000/users/register", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+    const result = await registerUser(formData);
+
+    if (result.success) {
       setRegisteredName(formatName(userData.username));
       setShowModal(true);
       setIsRegistered(true);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("Error response data:", error.response?.data);
-        const errorMsg =
-          error.response?.data?.error ||
-          "Hubo un error al registrar el usuario";
-        setServiceError(errorMsg);
-        setShowModal(true);
-      } else {
-        console.error("Error inesperado:", error);
-        setServiceError("Hubo un error inesperado al registrar el usuario");
-        setShowModal(true);
-      }
+    } else {
+      setServiceError(result.error);
+      setShowModal(true);
     }
   };
 

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import axios from "axios";
+import { cancelTurn } from "../../services/turnsService";
 import styles from "./Turn.module.css";
 import { TurnsContext } from "../../context/TurnsContext/TurnsContext";
 import ModalWindow from "../ModalWindow/ModalWindow";
@@ -10,8 +10,8 @@ const Turn = ({ id, date, description, time, status }) => {
 
   const handleCancel = async () => {
     try {
-      const res = await axios.put(`http://localhost:3000/turns/cancel/${id}`);
-      updateTurnById(id, res.data);
+      const updatedTurn = await cancelTurn(id);
+      updateTurnById(id, updatedTurn);
     } catch (error) {
       console.error("Error al cancelar el turno:", error);
     } finally {

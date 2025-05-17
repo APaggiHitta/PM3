@@ -1,6 +1,6 @@
 import { useEffect, useContext, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { getTurnsByUserId } from "../../services/turnsService";
 
 import Turn from "../../components/Turn/Turn";
 import AddTurn from "../../components/AddTurn/AddTurn";
@@ -24,9 +24,8 @@ const Turns = () => {
 
   const fetchTurns = useCallback(() => {
     if (user) {
-      axios
-        .get(`http://localhost:3000/turns/user/${user.id}`)
-        .then((res) => setTurns(res.data))
+      getTurnsByUserId(user.id)
+        .then((data) => setTurns(data))
         .catch((err) => console.error("Error cargando turnos:", err));
     }
   }, [user, setTurns]);

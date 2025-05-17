@@ -2,7 +2,9 @@ import styles from "./AddTurn.module.css";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/UserContext/UserContext";
 import { validate } from "../../helpers/validate";
-import axios from "axios";
+import { addTurn } from "../../services/turnsService";
+import { getActivities } from "../../services/activitiesService";
+
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 
 const AddTurn = ({ refreshTurns }) => {
@@ -30,9 +32,8 @@ const AddTurn = ({ refreshTurns }) => {
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/activities")
-      .then((res) => setActivities(res.data))
+    getActivities()
+      .then(setActivities)
       .catch((err) => console.error("Error al traer actividades:", err));
   }, []);
 
@@ -74,7 +75,7 @@ const AddTurn = ({ refreshTurns }) => {
     setIsLoading(true); // Mostrar modal de carga
 
     try {
-      await axios.post("http://localhost:3000/turns/schedule", turnPayload);
+      await addTurn(turnPayload);
 
       setModalTitle("¡Tu aventura está confirmada!");
       setModalMessage(

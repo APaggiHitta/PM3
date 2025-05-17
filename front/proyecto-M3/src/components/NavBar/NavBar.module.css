@@ -105,8 +105,8 @@
 }
 
 .avatarContainer {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background-color: #e0e0e0; /* gris claro */
   overflow: hidden;
@@ -117,8 +117,8 @@
 }
 
 .avatarImage {
-  width: 85%;
-  height: 85%;
+  width: 90%;
+  height: 90%;
   object-fit: cover;
   border-radius: 50%;
 }
