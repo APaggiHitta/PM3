@@ -55,7 +55,6 @@ const Turns = () => {
         </p>
       ) : (
         <>
-          {/* Filtros solo si hay turnos */}
           <div className={styles.filterContainer}>
             {["Todas", "Activas", "Canceladas"].map((type) => (
               <button
@@ -72,14 +71,12 @@ const Turns = () => {
             ))}
           </div>
 
-          {/* Si no hay turnos para el filtro seleccionado */}
           {filteredTurns.length === 0 && (
             <p className={styles.noTurnsMessage}>
               No hay actividades {filter.toLowerCase()} por el momento.
             </p>
           )}
 
-          {/* Renderizar tarjetas filtradas */}
           <div className={styles.turnsContainer}>
             {filteredTurns.map((turn) => (
               <div className={styles.turnCard} key={turn.id}>

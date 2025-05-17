@@ -40,10 +40,10 @@ const preloadActivities: IActivity[] = [
 const preloadUsers: IUser[] = [
   {
     name: "Alvaro Paggi",
-    email: "alvaropaggi@gmail.com",
+    email: "alvaropaggi@mail.com",
     birthdate: new Date("2010-03-12"),
     nDni: 9384938,
-    username: "alvaropaggi@gmail.com",
+    username: "alvaropaggi@mail.com",
     password: "holanda",
   },
 ];

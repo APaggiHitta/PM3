@@ -200,8 +200,15 @@
 }
 
 .dayLabel {
-  margin-bottom: 5px;
+  margin-bottom: 4px;
 }
+
 .dayInput {
-  height: 29px;
+  height: 25px;
+}
+
+.inputGroup input,
+.activitySelection {
+  font-size: 1rem;
+  font-family: inherit;
 }

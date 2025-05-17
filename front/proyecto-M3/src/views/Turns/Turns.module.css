@@ -76,9 +76,11 @@
 }
 
 .filterButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 1;
-  min-width: 100px; /* Fuerza un ancho mínimo igual para todos */
-  text-align: center;
+  min-width: 100px;
   background-color: white;
   border: none;
   padding: 0.5rem 1.5rem;
@@ -86,6 +88,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+  text-align: center;
 }
 
 .filterButton:hover {

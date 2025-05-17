@@ -22,6 +22,10 @@ const NavBar = () => {
     navigate("/home"); // Redirige al home
   };
 
+  const handleLinkClick = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <div className={styles.mainContainer}>
       <img className={styles.logo} src={logoAAT} alt="" />
@@ -29,25 +33,37 @@ const NavBar = () => {
         <Link to={"/home"} className={styles.navLink}>
           <Menu name={"Home"}></Menu>
         </Link>
-        {/* <Link to={"turns"} className={styles.navLink}>
-          <Menu name={"Mis turnos"} className={styles.navLink}></Menu>
-        </Link> */}
+
         {user && (
-          <Link to="/turns" className={styles.navLink}>
+          <Link
+            to="/turns"
+            className={styles.navLink}
+            onClick={handleLinkClick}
+          >
             <Menu name="Mis turnos" />
           </Link>
         )}
-        <Link to={"/about"} className={styles.navLink}>
+        <Link
+          to={"/about"}
+          className={styles.navLink}
+          onClick={handleLinkClick}
+        >
           <Menu name={"About"}></Menu>
         </Link>
-        <Link to={"/contact"} className={styles.navLink}>
+        <Link
+          to={"/contact"}
+          className={styles.navLink}
+          onClick={handleLinkClick}
+        >
           <Menu name={"Contacto"}></Menu>
         </Link>
-        {/* <Link to={"/login"} className={styles.navLink}>
-          <Menu name={"Iniciar sesión"}></Menu>
-        </Link> */}
+
         {!user ? (
-          <Link to="/login" className={styles.navLink}>
+          <Link
+            to="/login"
+            className={styles.navLink}
+            onClick={handleLinkClick}
+          >
             <Menu name="Iniciar sesión" />
           </Link>
         ) : (

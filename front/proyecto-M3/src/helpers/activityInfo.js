@@ -3,6 +3,7 @@ import imgCanotaje from "../assets/img/canotaje.jpeg";
 import imgRafting from "../assets/img/rafting.jpeg";
 import imgCamping from "../assets/img/camping.jpg";
 import imgCircuito from "../assets/img/circuitoIndigena.jpg";
+import imgAvistamiento from "../assets/img/avistamiento-aves.jpg";
 
 const activityInfo = [
   {
@@ -37,6 +38,13 @@ const activityInfo = [
     price: "USD 800",
     description:
       "Conectate con culturas indígenas y viví sus tradiciones auténticas.",
+  },
+  {
+    id: 6,
+    image: imgAvistamiento,
+    price: "USD 500 ",
+    description:
+      "Una aventura guiada especialmente diseñada para amantes de la naturaleza y la fotografía, en busca de las aves más impresionantes del Amazonas.",
   },
 ];
 

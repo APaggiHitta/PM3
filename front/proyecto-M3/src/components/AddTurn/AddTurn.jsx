@@ -52,6 +52,10 @@ const AddTurn = ({ refreshTurns }) => {
       ...prevErrors,
       [name]: fieldError[name] || "",
     }));
+
+    if (name === "date") {
+      e.target.blur();
+    }
   };
 
   const handleSubmit = async (e) => {

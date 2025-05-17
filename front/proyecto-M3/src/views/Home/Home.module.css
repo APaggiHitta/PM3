@@ -1,7 +1,7 @@
 .activityInfoContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start; /* Distribuye las tarjetas de manera uniforme */
+  justify-content: center;
   gap: 20px; /* Espacio entre las tarjetas */
   padding: 20px;
 }
