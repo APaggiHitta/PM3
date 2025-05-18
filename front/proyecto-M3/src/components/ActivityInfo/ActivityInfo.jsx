@@ -24,7 +24,6 @@ const ActivityInfo = ({ image, price, description }) => {
         <div className={styles.price}>{price}</div>
       </div>
 
-      {/* Contenido al hacer hover */}
       <div className={styles.hoverContent}>
         <div className={styles.text}>¡Reserva esta aventura!</div>
         <button className={styles.reserveButton} onClick={handleReserveClick}>

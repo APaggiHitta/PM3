@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { validate } from "../../helpers/validate";
 import { registerUser } from "../../services/authService";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
+import { useLogin } from "../../hooks/useLogin";
 
 const initialUserData = {
   username: "",
@@ -85,10 +86,24 @@ const Register = () => {
       setRegisteredName(formatName(userData.username));
       setShowModal(true);
       setIsRegistered(true);
+
+      await loginUser({
+        email: userData.email,
+        password: userData.password1,
+      });
     } else {
       setServiceError(result.error);
       setShowModal(true);
     }
+
+    // if (result.success) {
+    //   setRegisteredName(formatName(userData.username));
+    //   setShowModal(true);
+    //   setIsRegistered(true);
+    // } else {
+    //   setServiceError(result.error);
+    //   setShowModal(true);
+    // }
   };
 
   const isFormValid = () => {
@@ -110,6 +125,8 @@ const Register = () => {
     }
   }, [isRegistered]);
 
+  const { loginUser } = useLogin();
+
   return (
     <>
       <h1 className={styles.title}>VACACIONES Y AVENTURAS EN EL AMAZONAS</h1>
@@ -122,14 +139,14 @@ const Register = () => {
             message={
               serviceError
                 ? serviceError
-                : "Tu usuario se ha dado de alta en nuestra base de datos. Ingresa tus credenciales en el Login!"
+                : "Tu usuario se ha dado de alta en nuestra base de datos. Te redirigiremos a la pagina de reservas!"
             }
             onClose={() => {
               setShowModal(false);
               if (!serviceError) {
-                navigate("/login");
+                navigate("/turns");
               }
-              setServiceError(""); // Limpiar el error para la próxima vez
+              setServiceError("");
             }}
           />
         )}

@@ -7,7 +7,6 @@ import {
   preloadTurnsData,
   preloadUsersData,
 } from "./helpers/preloadData";
-import { appendFile } from "fs";
 
 const initializeApp = async () => {
   await AppDataSource.initialize();

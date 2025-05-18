@@ -73,6 +73,16 @@ const About = () => {
             fotógrafos en busca de los paisajes más remotos y salvajes del
             Amazonas.
           </li>
+          <li>
+            <strong>🛳️ Crucero Amazónico (5 días):</strong> Descubrí la magia
+            del Amazonas desde una perspectiva única: a bordo de un confortable
+            crucero. Durante cinco días, navegarás por paisajes impresionantes,
+            visitarás comunidades ribereñas y vivirás puestas de sol
+            inolvidables desde la cubierta. Incluye excursiones guiadas en
+            selva, pesca de pirañas, observación de delfines rosados y
+            experiencias gastronómicas con sabores locales. Todo mientras
+            disfrutás de la tranquilidad de la selva desde el corazón del río.
+          </li>
         </ul>
       </section>
 

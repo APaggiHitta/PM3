@@ -4,10 +4,14 @@ import cover1 from "../../assets/img/caratula1.jpg";
 import cover2 from "../../assets/img/caratula2.webp";
 import cover3 from "../../assets/img/caratula3.jpg";
 import cover4 from "../../assets/img/caratula4.jpeg";
+import cover5 from "../../assets/img/caratula5.jpeg";
+import cover6 from "../../assets/img/caratula6.avif";
+import cover7 from "../../assets/img/caratula7.jpg";
+
 import logoGoogle from "../../assets/img/brand-google.svg";
 import logoTripAdvisor from "../../assets/img/brand-tripadvisor.svg";
 
-const images = [cover1, cover2, cover3, cover4];
+const images = [cover1, cover2, cover3, cover4, cover5, cover6, cover7];
 
 const CoverImage = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

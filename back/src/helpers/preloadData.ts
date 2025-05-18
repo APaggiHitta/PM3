@@ -15,6 +15,9 @@ const preloadActivities: IActivity[] = [
     name: "Excursión de pesca",
   },
   {
+    name: "Crucero amazónico",
+  },
+  {
     name: "Rafting",
   },
   {
