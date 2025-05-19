@@ -116,4 +116,15 @@ export const validate = (fieldName, fieldValue, userData) => {
   return errors;
 };
 
-export default validate;
+export const getInitialRegisterErrors = () => {
+  return {
+    username: "Nombre del usuario es obligatorio",
+    userlastname: "Apellido del usuario es obligatorio",
+    email: "E-Mail del usuario es obligatorio",
+    birthdate: "Fecha de nacimiento del usuario es obligatoria",
+    nDni: "Número de documento del usuario es obligatorio (sin puntos ni guiones)",
+    password1: "Se debe ingresar una contraseña",
+    password2: "Se debe repetir la contraseña",
+    acceptPolicies: "Debes aceptar nuestras Políticas para continuar",
+  };
+};

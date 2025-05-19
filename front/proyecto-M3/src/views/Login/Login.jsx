@@ -1,13 +1,19 @@
 import styles from "../../styles/Form.module.css";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { validate } from "../../helpers/validate";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/useLogin";
 
 const Login = () => {
+  const emailInputRef = useRef(null);
+
+  useEffect(() => {
+    emailInputRef.current?.focus();
+  }, []);
+
   const navigate = useNavigate();
-  const { loginUser, loading, error: loginError } = useLogin();
+  const { loginUser, loading } = useLogin();
 
   const [userData, setUserData] = useState({
     email: "",
@@ -97,13 +103,11 @@ const Login = () => {
           />
         )}
 
-        {loading && <p className={styles.loading}>Cargando...</p>}
-        {loginError && <p className={styles.errorMessage}>{loginError}</p>}
-
         <form onSubmit={handleOnSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
             <label>Usuario (E-Mail)</label>
             <input
+              ref={emailInputRef}
               type="text"
               name="email"
               placeholder="example@mail.com"

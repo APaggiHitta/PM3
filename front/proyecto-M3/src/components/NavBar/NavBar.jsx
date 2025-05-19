@@ -4,7 +4,7 @@ import logoHamburguer from "../../assets/img/logoHamburguer.svg";
 import userAvatar from "../../assets/img/userAvatar.svg";
 import Menu from "../Menus/Menu";
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { UserContext } from "../../context/UserContext/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -18,8 +18,8 @@ const NavBar = () => {
   };
 
   const handleLogout = () => {
-    logout(); // Limpia el contexto
-    navigate("/home"); // Redirige al home
+    logout();
+    navigate("/home");
   };
 
   const handleLinkClick = () => {
@@ -32,42 +32,56 @@ const NavBar = () => {
         <img className={styles.logo} src={logoAAT} alt="" />
       </Link>
       <div className={`${styles.menus} ${menuOpen ? styles.open : ""}`}>
-        <Link to={"/home"} className={styles.navLink}>
+        <NavLink
+          to={"/home"}
+          className={({ isActive }) =>
+            `${styles.navLink} ${isActive ? styles.active : ""}`
+          }
+          onClick={handleLinkClick}
+        >
           <Menu name={"Home"}></Menu>
-        </Link>
+        </NavLink>
 
         {user && (
-          <Link
+          <NavLink
             to="/turns"
-            className={styles.navLink}
+            className={({ isActive }) =>
+              `${styles.navLink} ${isActive ? styles.active : ""}`
+            }
             onClick={handleLinkClick}
           >
-            <Menu name="Mis turnos" />
-          </Link>
+            <Menu name="Mi agenda" />
+          </NavLink>
         )}
-        <Link
+        <NavLink
           to={"/about"}
-          className={styles.navLink}
+          className={({ isActive }) =>
+            `${styles.navLink} ${isActive ? styles.active : ""}`
+          }
           onClick={handleLinkClick}
         >
           <Menu name={"About"}></Menu>
-        </Link>
-        <Link
+        </NavLink>
+        <NavLink
           to={"/contact"}
-          className={styles.navLink}
+          className={({ isActive }) =>
+            `${styles.navLink} ${isActive ? styles.active : ""}`
+          }
           onClick={handleLinkClick}
         >
           <Menu name={"Contacto"}></Menu>
-        </Link>
+        </NavLink>
 
         {!user ? (
-          <Link
+          <NavLink
             to="/login"
-            className={styles.navLink}
+            className={({ isActive }) =>
+              `${styles.navLink} ${isActive ? styles.active : ""}`
+            }
             onClick={handleLinkClick}
           >
             <Menu name="Iniciar sesión" />
-          </Link>
+          </NavLink>
         ) : (
           <>
             <div className={styles.userSection}>

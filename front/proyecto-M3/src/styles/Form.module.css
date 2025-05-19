@@ -32,7 +32,7 @@
 
 .inputGroup {
   display: flex;
-  flex-direction: column; /* Asegura que label, input y error estén apilados */
+  flex-direction: column;
   margin-bottom: 15px;
 }
 

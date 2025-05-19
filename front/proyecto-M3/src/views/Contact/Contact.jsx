@@ -1,5 +1,9 @@
 import styles from "./Contact.module.css";
 
+const handleSubmit = (e) => {
+  e.preventDefault();
+};
+
 const Contact = () => {
   return (
     <div className={styles.contactContainer}>
@@ -48,7 +52,7 @@ const Contact = () => {
 
       <div className={styles.formSection}>
         <h2 className={styles.sectionTitle}>Envíanos un mensaje</h2>
-        <form className={styles.form}>
+        <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label>Nombre</label>
             <input type="text" placeholder="Tu nombre completo" />

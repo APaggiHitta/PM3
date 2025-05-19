@@ -1,10 +1,12 @@
-import styles from "../../styles/Form.module.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { validate } from "../../helpers/validate";
-import { registerUser } from "../../services/authService";
-import ModalWindow from "../../components/ModalWindow/ModalWindow";
+
 import { useLogin } from "../../hooks/useLogin";
+import { validate, getInitialRegisterErrors } from "../../helpers/validate";
+import { registerUser } from "../../services/authService";
+
+import styles from "../../styles/Form.module.css";
+import ModalWindow from "../../components/ModalWindow/ModalWindow";
 
 const initialUserData = {
   username: "",
@@ -18,16 +20,7 @@ const initialUserData = {
   acceptPolicies: false,
 };
 
-const initialErrors = {
-  username: "Nombre del usuario es obligatorio",
-  userlastname: "Apellido del usuario es obligatorio",
-  email: "E-Mail del usuario es obligatorio",
-  birthdate: "Fecha de nacimiento del usuario es obligatoria",
-  nDni: "Número de documento del usuario es obligatorio (sin puntos ni guiones)",
-  password1: "Se debe ingresar una contraseña",
-  password2: "Se debe repetir la contraseña",
-  acceptPolicies: "Debes aceptar nuestras Políticas para continuar",
-};
+const initialErrors = getInitialRegisterErrors();
 
 const Register = () => {
   const [userData, setUserData] = useState(initialUserData);

@@ -5,6 +5,5 @@ interface IUser {
   nDni: number;
   username: string;
   password: string;
-  // credentialsId: number;
 }
 export default IUser;

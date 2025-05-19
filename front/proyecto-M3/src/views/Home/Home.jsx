@@ -4,17 +4,16 @@ import activityInfo from "../../helpers/activityInfo";
 import styles from "./Home.module.css";
 
 const Home = () => {
-  const activities = activityInfo;
+  const title = "VACACIONES Y AVENTURAS EN EL AMAZONAS";
+  const subtitle = "RESERVA TU PRÓXIMA EXPERIENCIA CON NOSOTROS";
 
   return (
     <div>
       <CoverImage />
-      <h1 className={styles.title}>VACACIONES Y AVENTURAS EN EL AMAZONAS</h1>
-      <h2 className={styles.subtitle}>
-        RESERVA TU PRÓXIMA EXPERIENCIA CON NOSOTROS
-      </h2>
+      <h1 className={styles.title}>{title}</h1>
+      <h2 className={styles.subtitle}>{subtitle}</h2>
       <div className={styles.activityInfoContainer}>
-        {activities.map((activity) => (
+        {activityInfo.map((activity) => (
           <ActivityInfo
             key={activity.id}
             image={activity.image}
