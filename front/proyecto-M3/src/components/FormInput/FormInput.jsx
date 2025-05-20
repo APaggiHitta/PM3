@@ -1,47 +1,55 @@
+import { forwardRef } from "react";
 import styles from "../../styles/Form.module.css";
 
-export const FormInput = ({
-  label,
-  name,
-  type = "text",
-  value,
-  checked,
-  onChange,
-  placeholder = "",
-  error,
-  accept,
-}) => {
-  const isCheckbox = type === "checkbox";
+export const FormInput = forwardRef(
+  (
+    {
+      label,
+      name,
+      type = "text",
+      value,
+      checked,
+      onChange,
+      placeholder = "",
+      error,
+      accept,
+    },
+    ref
+  ) => {
+    const isCheckbox = type === "checkbox";
 
-  return (
-    <div className={styles.inputGroup}>
-      {isCheckbox ? (
-        <label className={styles.checkboxLabel}>
-          <input
-            type="checkbox"
-            name={name}
-            checked={checked}
-            onChange={onChange}
-          />
-          {label}
-        </label>
-      ) : (
-        <>
-          <label>{label}</label>
-          <input
-            type={type}
-            name={name}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            accept={accept}
-          />
-        </>
-      )}
-      {error && <p className={styles.errorMessage}>{error}</p>}
-    </div>
-  );
-};
+    return (
+      <div className={styles.inputGroup}>
+        {isCheckbox ? (
+          <label className={styles.checkboxLabel}>
+            <input
+              type="checkbox"
+              name={name}
+              checked={checked}
+              onChange={onChange}
+            />
+            {label}
+          </label>
+        ) : (
+          <>
+            <label>{label}</label>
+            <input
+              className={styles.inputField}
+              type={type}
+              name={name}
+              value={value}
+              onChange={onChange}
+              placeholder={placeholder}
+              accept={accept}
+              ref={ref}
+            />
+          </>
+        )}
+        {error && <p className={styles.errorMessage}>{error}</p>}
+      </div>
+    );
+  }
+);
 
 export const FormSelect = ({
   label,

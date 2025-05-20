@@ -1,5 +1,5 @@
 export enum turnStatus {
-  ACTIVE = "acive",
+  ACTIVE = "active",
   CANCELLED = "cancelled",
 }
 

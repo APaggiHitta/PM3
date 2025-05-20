@@ -76,14 +76,14 @@ const preloadTurns: ITurn[] = [
   {
     date: new Date("2025-07-18"),
     time: "10:30",
-    status: turnStatus.CANCELLED,
+    status: turnStatus.ACTIVE,
     userId: 1,
     activityId: 5,
   },
   {
     date: new Date("2025-07-18"),
     time: "10:30",
-    status: turnStatus.CANCELLED,
+    status: turnStatus.ACTIVE,
     userId: 1,
     activityId: 6,
   },

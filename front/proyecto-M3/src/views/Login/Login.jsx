@@ -113,6 +113,7 @@ const Login = () => {
             onChange={handleInputChange}
             placeholder="ejemplo@mail.com"
             error={errors.email}
+            ref={emailInputRef}
           />
 
           <FormInput
