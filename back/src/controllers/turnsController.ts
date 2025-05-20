@@ -10,47 +10,73 @@ import {
 import { Turn } from "../entities/Turn";
 
 export const getTurnsController = async (req: Request, res: Response) => {
-  const turns: Turn[] = await getTurnsService();
-  res.status(200).json(turns);
+  try {
+    const turns: Turn[] = await getTurnsService();
+    res.status(200).json({
+      success: true,
+      turns,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
 export const getTurnsByIdController = async (req: Request, res: Response) => {
-  const turnId = Number(req.params.id);
+  try {
+    const turnId = Number(req.params.id);
 
-  if (isNaN(turnId)) {
-    res.status(400).json({ message: "Invalid turn ID" });
-    return;
+    if (isNaN(turnId)) {
+      res.status(400).json({ message: "Invalid turn ID" });
+      return;
+    }
+
+    const turn = await getTurnsByIdService(turnId);
+
+    if (!turn) {
+      res.status(404).json({ message: "Turn not found" });
+      return;
+    }
+
+    res.status(200).json({
+      success: true,
+      turn,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
-
-  const turn = await getTurnsByIdService(turnId);
-
-  if (!turn) {
-    res.status(404).json({ message: "Turn not found" });
-    return;
-  }
-
-  res.status(200).json(turn);
 };
 
 export const getTurnsByUserIdController = async (
   req: Request,
   res: Response
 ) => {
-  const userId = Number(req.params.id);
+  try {
+    const userId = Number(req.params.id);
 
-  if (isNaN(userId)) {
-    res.status(400).json({ message: "Invalid user ID" });
-    return;
+    if (isNaN(userId)) {
+      res.status(400).json({ message: "Invalid user ID" });
+      return;
+    }
+
+    const turns = await getTurnsByUserIdService(userId);
+
+    if (!turns) {
+      res.status(404).json({ message: "Turn not found" });
+      return;
+    }
+    res.status(200).json(turns);
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
-
-  const turns = await getTurnsByUserIdService(userId);
-
-  if (!turns) {
-    res.status(404).json({ message: "Turn not found" });
-    return;
-  }
-
-  res.status(200).json(turns);
 };
 
 export const createTurnController = async (req: Request, res: Response) => {
@@ -60,40 +86,28 @@ export const createTurnController = async (req: Request, res: Response) => {
       message: "Turno creado exitosamente",
     });
   } catch (error: any) {
-    res.status(400).json({
+    res.status(500).json({
+      success: false,
       message: error.message,
     });
   }
 };
 
 export const cancelTurnController = async (req: Request, res: Response) => {
-  const turnId = Number(req.params.id);
-
-  if (isNaN(turnId)) {
-    res.status(400).json({ message: "Invalid turn ID" });
-    return;
-  }
-
   try {
+    const turnId = Number(req.params.id);
+
+    if (isNaN(turnId)) {
+      res.status(400).json({ message: "Invalid turn ID" });
+      return;
+    }
+
     const turn = await cancelTurnService(turnId);
     res.status(200).json(turn);
   } catch (error: any) {
-    res.status(400).json({ message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
-
-  // const turnId = Number(req.params.id);
-
-  // if (isNaN(turnId)) {
-  //   res.status(400).json({ message: "Invalid turn ID" });
-  //   return;
-  // }
-
-  // const turn = await cancelTurnService(turnId);
-
-  // if (!turn) {
-  //   res.status(404).json({ message: "Turn not found" });
-  //   return;
-  // }
-
-  // res.status(200).json(turn);
 };

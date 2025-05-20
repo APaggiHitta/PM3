@@ -1,9 +1,10 @@
-import styles from "../../styles/Form.module.css";
 import { useState, useRef, useEffect } from "react";
 import { validate } from "../../helpers/validate";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/useLogin";
+import { FormInput } from "../../components/FormInput/FormInput";
+import styles from "../../styles/Form.module.css";
 
 const Login = () => {
   const emailInputRef = useRef(null);
@@ -104,32 +105,25 @@ const Login = () => {
         )}
 
         <form onSubmit={handleOnSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
-            <label>Usuario (E-Mail)</label>
-            <input
-              ref={emailInputRef}
-              type="text"
-              name="email"
-              placeholder="example@mail.com"
-              onChange={handleInputChange}
-            />
-            {errors.email && (
-              <p className={styles.errorMessage}>{errors.email}</p>
-            )}
-          </div>
+          <FormInput
+            label="Usuario (E-Mail)"
+            name="email"
+            type="text"
+            value={userData.email}
+            onChange={handleInputChange}
+            placeholder="ejemplo@mail.com"
+            error={errors.email}
+          />
 
-          <div className={styles.inputGroup}>
-            <label>Contraseña</label>
-            <input
-              type="password"
-              name="password1"
-              placeholder="******"
-              onChange={handleInputChange}
-            />
-            {errors.password1 && (
-              <p className={styles.errorMessage}>{errors.password1}</p>
-            )}
-          </div>
+          <FormInput
+            label="Contraseña"
+            name="password1"
+            type="password"
+            value={userData.password1}
+            onChange={handleInputChange}
+            placeholder="******"
+            error={errors.password1}
+          />
 
           <button
             type="submit"

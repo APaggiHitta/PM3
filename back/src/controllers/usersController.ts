@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 
 import {
   getUsersService,
-  getUsersByIdService,
+  getUserByIdService,
   createUserService,
   userLoginService,
 } from "../services/usersService";
@@ -10,26 +10,40 @@ import {
 import { User } from "../entities/User";
 
 export const getUsersController = async (req: Request, res: Response) => {
-  const users: User[] = await getUsersService();
-  res.status(200).json(users);
+  try {
+    const users: User[] = await getUsersService();
+    res.status(200).json(users);
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
 };
 
 export const getUserByIdController = async (req: Request, res: Response) => {
-  const userId = Number(req.params.id);
+  try {
+    const userId = Number(req.params.id);
 
-  if (isNaN(userId)) {
-    res.status(400).json({ message: "Invalid user ID" });
-    return;
+    if (isNaN(userId)) {
+      res.status(400).json({ message: "Invalid user ID" });
+      return;
+    }
+
+    const user = await getUserByIdService(userId);
+
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    res.status(200).json(user);
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
-
-  const user = await getUsersByIdService(userId);
-
-  if (!user) {
-    res.status(404).json({ message: "User not found" });
-    return;
-  }
-
-  res.status(200).json(user);
 };
 
 export const createUserController = async (req: Request, res: Response) => {

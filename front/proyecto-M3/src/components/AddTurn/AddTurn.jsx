@@ -1,4 +1,4 @@
-import styles from "./AddTurn.module.css";
+import styles from "../../styles/Form.module.css";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/UserContext/UserContext";
 import { validate } from "../../helpers/validate";
@@ -6,6 +6,7 @@ import { addTurn } from "../../services/turnsService";
 import { getActivities } from "../../services/activitiesService";
 
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
+import { FormInput, FormSelect } from "../FormInput/FormInput";
 
 const AddTurn = ({ refreshTurns }) => {
   const [turnData, setTurnData] = useState({
@@ -131,70 +132,48 @@ const AddTurn = ({ refreshTurns }) => {
           />
         )}
 
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form className={styles.formWide} onSubmit={handleSubmit}>
           <div className={styles.inputRow}>
-            <div className={styles.inputGroup}>
-              <label>¿Qué actividad agendarás?</label>
+            <FormSelect
+              label="¿Qué actividad agendarás?"
+              name="activity"
+              value={turnData.activity}
+              onChange={handleChange}
+              error={errors.activity}
+              options={activities.map((act) => ({
+                value: act.id,
+                label: act.name,
+              }))}
+            />
 
-              <select
-                className={styles.activitySelection}
-                id="activity"
-                name="activity"
-                value={turnData.activity}
-                onChange={handleChange}
-              >
-                <option value="">Selecciona una actividad</option>
-                {activities.map((act) => (
-                  <option key={act.id} value={act.id}>
-                    {act.name}
-                  </option>
-                ))}
-              </select>
-              {errors.activity && (
-                <p className={styles.errorMessage}>{errors.activity}</p>
-              )}
-            </div>
+            <FormInput
+              label="¿Qué día?"
+              type="date"
+              name="date"
+              value={turnData.date}
+              onChange={handleChange}
+              error={errors.date}
+            />
 
-            <div className={styles.inputGroup}>
-              <label className={styles.dayLabel}>¿Qué día?</label>
-              <input
-                className={styles.dayInput}
-                type="date"
-                name="date"
-                value={turnData.date}
-                onChange={handleChange}
-              />
-              {errors.date && (
-                <p className={styles.errorMessage}>{errors.date}</p>
-              )}
-            </div>
-
-            <div className={styles.inputGroup}>
-              <label>Elige una hora</label>
-
-              <select
-                className={styles.activitySelection}
-                id="time"
-                name="time"
-                value={turnData.time}
-                onChange={handleChange}
-              >
-                <option value="">Selecciona una hora</option>
-                <option value="08:00">08:00</option>
-                <option value="09:00">09:00</option>
-                <option value="10:00">10:00</option>
-                <option value="11:00">11:00</option>
-                <option value="12:00">12:00</option>
-                <option value="13:00">13:00</option>
-                <option value="14:00">14:00</option>
-                <option value="15:00">15:00</option>
-                <option value="16:00">16:00</option>
-                <option value="17:00">17:00</option>
-              </select>
-              {errors.time && (
-                <p className={styles.errorMessage}>{errors.time}</p>
-              )}
-            </div>
+            <FormSelect
+              label="Elige una hora"
+              name="time"
+              value={turnData.time}
+              onChange={handleChange}
+              error={errors.time}
+              options={[
+                "08:00",
+                "09:00",
+                "10:00",
+                "11:00",
+                "12:00",
+                "13:00",
+                "14:00",
+                "15:00",
+                "16:00",
+                "17:00",
+              ]}
+            />
           </div>
 
           <button

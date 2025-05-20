@@ -1,3 +1,5 @@
+/* === CLASES COMPARTIDAS (ya existentes, sin cambios importantes) === */
+
 .title {
   text-align: center;
   margin: 40px 0;
@@ -16,13 +18,12 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  /* min-height: calc(100vh - 30px); */
   margin-top: 30px;
   margin-bottom: 50px;
 }
 
 .form {
-  background-color: #f0f0f0; /* opcional */
+  background-color: #f0f0f0;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -44,12 +45,12 @@
   padding: 6px 8px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  margin-top: 5px; /* Un poco de separación entre el label y el input */
+  margin-top: 5px;
 }
 
 .submitButton {
-  display: block; /* Permite centrar con margin auto */
-  margin: 30px auto 0; /* Espacio arriba, centrado horizontal */
+  display: block;
+  margin: 30px auto 0;
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
@@ -72,24 +73,13 @@
 
 .errorMessage {
   color: red;
-  font-size: 0.8rem; /* Tamaño de letra más pequeño */
-  font-style: italic; /* Cursiva */
-  margin-top: 5px; /* Un poco de espacio arriba del mensaje */
-  display: block; /* Asegura que el error esté en una nueva línea */
-}
-
-.termsConditions {
-  display: flex;
-  align-items: center;
-  font-style: italic;
   font-size: 0.8rem;
-  gap: 8px;
+  font-style: italic;
+  margin-top: 5px;
+  display: block;
 }
 
-.submitButton:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
+/* === MODAL === */
 
 .modalOverlay {
   position: fixed;
@@ -158,6 +148,8 @@
   }
 }
 
+/* === ENLACES Y CHECKBOX === */
+
 .registerPrompt {
   text-align: center;
   margin-bottom: 20px;
@@ -166,18 +158,57 @@
 }
 
 .navLink {
-  color: rgba(236, 141, 36, 255); /* mismo color que en navbar */
+  color: rgba(236, 141, 36, 255);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.2s ease-in-out;
 }
 
 .navLink:hover {
-  color: #d8f3dc; /* verde claro y pálido */
+  color: #d8f3dc;
 }
 
 .activitySelection {
   margin-top: 10px;
   font-size: 22px;
   font-family: inherit;
+}
+
+.checkboxLabel {
+  font-weight: normal !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-style: italic;
+  font-size: 0.8rem;
+}
+
+/* === CLASES AGREGADAS SOLO PARA AddTurn.jsx === */
+
+.inputRow {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 700px) {
+  .inputRow {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .inputGroup {
+    flex: 1;
+  }
+}
+
+.formWide {
+  background-color: #f0f0f0;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 900px; /* más ancho para 3 columnas */
 }

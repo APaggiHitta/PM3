@@ -7,6 +7,7 @@ import { registerUser } from "../../services/authService";
 
 import styles from "../../styles/Form.module.css";
 import ModalWindow from "../../components/ModalWindow/ModalWindow";
+import { FormInput } from "../../components/FormInput/FormInput";
 
 const initialUserData = {
   username: "",
@@ -88,15 +89,6 @@ const Register = () => {
       setServiceError(result.error);
       setShowModal(true);
     }
-
-    // if (result.success) {
-    //   setRegisteredName(formatName(userData.username));
-    //   setShowModal(true);
-    //   setIsRegistered(true);
-    // } else {
-    //   setServiceError(result.error);
-    //   setShowModal(true);
-    // }
   };
 
   const isFormValid = () => {
@@ -145,119 +137,86 @@ const Register = () => {
         )}
 
         <form onSubmit={handleOnSubmit} className={styles.form}>
-          <div className={styles.inputGroup}>
-            <label>Nombre</label>
-            <input
-              type="text"
-              name="username"
-              placeholder="John"
-              value={userData.username}
-              onChange={handleInputChange}
-            />
-            {errors.username && (
-              <p className={styles.errorMessage}>{errors.username}</p>
-            )}
-          </div>
+          <FormInput
+            label="Nombre"
+            name="username"
+            type="text"
+            value={userData.username}
+            onChange={handleInputChange}
+            placeholder="John"
+            error={errors.username}
+          />
 
-          <div className={styles.inputGroup}>
-            <label>Apellido</label>
-            <input
-              type="text"
-              name="userlastname"
-              placeholder="Doe"
-              value={userData.userlastname}
-              onChange={handleInputChange}
-            />
-            {errors.userlastname && (
-              <p className={styles.errorMessage}>{errors.userlastname}</p>
-            )}
-          </div>
+          <FormInput
+            label="Apellido"
+            name="userlastname"
+            type="text"
+            value={userData.userlastname}
+            onChange={handleInputChange}
+            placeholder="Doe"
+            error={errors.userlastname}
+          />
+          <FormInput
+            label="E-Mail"
+            name="email"
+            type="text"
+            value={userData.email}
+            onChange={handleInputChange}
+            placeholder="ejemplo@mail.com"
+            error={errors.email}
+          />
 
-          <div className={styles.inputGroup}>
-            <label>E-Mail</label>
-            <input
-              type="text"
-              name="email"
-              placeholder="example@mail.com"
-              value={userData.email}
-              onChange={handleInputChange}
-            />
-            {errors.email && (
-              <p className={styles.errorMessage}>{errors.email}</p>
-            )}
-          </div>
+          <FormInput
+            label="Fecha de nacimiento"
+            name="birthdate"
+            type="date"
+            value={userData.birthdate}
+            onChange={handleInputChange}
+            error={errors.birthdate}
+          />
 
-          <div className={styles.inputGroup}>
-            <label>Fecha de nacimiento</label>
-            <input
-              type="date"
-              name="birthdate"
-              value={userData.birthdate}
-              onChange={handleInputChange}
-            />
-            {errors.birthdate && (
-              <p className={styles.errorMessage}>{errors.birthdate}</p>
-            )}
-          </div>
-
-          <div className={styles.inputGroup}>
-            <label>Número de documento</label>
-            <input
-              type="text"
-              name="nDni"
-              value={userData.nDni}
-              onChange={handleInputChange}
-            />
-            {errors.nDni && (
-              <p className={styles.errorMessage}>{errors.nDni}</p>
-            )}
-          </div>
+          <FormInput
+            label="Número de documento"
+            name="nDni"
+            type="text"
+            value={userData.nDni}
+            onChange={handleInputChange}
+            error={errors.nDni}
+          />
 
           <div className={styles.inputGroup}>
             <label>Foto (opcional)</label>
             <input type="file" name="photo" onChange={handleInputChange} />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label>Contraseña</label>
-            <input
-              type="password"
-              name="password1"
-              placeholder="******"
-              value={userData.password1}
-              onChange={handleInputChange}
-            />
-            {errors.password1 && (
-              <p className={styles.errorMessage}>{errors.password1}</p>
-            )}
-          </div>
+          <FormInput
+            label="Contraseña"
+            name="password1"
+            type="password"
+            value={userData.password1}
+            onChange={handleInputChange}
+            placeholder="******"
+            error={errors.password1}
+          />
 
-          <div className={styles.inputGroup}>
-            <label>Repite la contraseña</label>
-            <input
-              type="password"
-              name="password2"
-              placeholder="******"
-              value={userData.password2}
-              onChange={handleInputChange}
-            />
-            {errors.password2 && (
-              <p className={styles.errorMessage}>{errors.password2}</p>
-            )}
-          </div>
+          <FormInput
+            label="Repite la contraseña"
+            name="password2"
+            type="password"
+            value={userData.password2}
+            onChange={handleInputChange}
+            placeholder="******"
+            error={errors.password2}
+          />
 
-          <label className={styles.termsConditions}>
-            <input
-              type="checkbox"
-              name="acceptPolicies"
-              checked={userData.acceptPolicies}
-              onChange={handleInputChange}
-            />
-            Acepto los Términos y Condiciones y las Políticas de Privacidad
-          </label>
-          {errors.acceptPolicies && (
-            <p className={styles.errorMessage}>{errors.acceptPolicies}</p>
-          )}
+          <FormInput
+            type="checkbox"
+            name="acceptPolicies"
+            checked={userData.acceptPolicies}
+            onChange={handleInputChange}
+            label="Acepto los Términos y Condiciones y las Políticas de Privacidad"
+            error={errors.acceptPolicies}
+          />
 
           <button
             disabled={!isFormValid()}

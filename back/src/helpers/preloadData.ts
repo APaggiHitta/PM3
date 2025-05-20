@@ -6,7 +6,7 @@ import {
   CredentialModel,
 } from "../config/data-source";
 import { User } from "../entities/User";
-import ITurn from "../interfaces/ITurn";
+import ITurn, { turnStatus } from "../interfaces/ITurn";
 import IUser from "../interfaces/IUser";
 import IActivity from "../interfaces/IActivity";
 
@@ -55,49 +55,49 @@ const preloadTurns: ITurn[] = [
   {
     date: new Date("2025-06-12"),
     time: "12:30",
-    status: "active",
+    status: turnStatus.ACTIVE,
     userId: 1,
     activityId: 2,
   },
   {
     date: new Date("2025-06-13"),
     time: "13:30",
-    status: "cancelled",
+    status: turnStatus.ACTIVE,
     userId: 1,
     activityId: 1,
   },
   {
     date: new Date("2025-06-20"),
     time: "14:30",
-    status: "active",
+    status: turnStatus.CANCELLED,
     userId: 1,
     activityId: 4,
   },
   {
     date: new Date("2025-07-18"),
     time: "10:30",
-    status: "cancelled",
+    status: turnStatus.CANCELLED,
     userId: 1,
     activityId: 5,
   },
   {
     date: new Date("2025-07-18"),
     time: "10:30",
-    status: "cancelled",
+    status: turnStatus.CANCELLED,
     userId: 1,
     activityId: 6,
   },
   {
     date: new Date("2025-07-18"),
     time: "10:30",
-    status: "active",
+    status: turnStatus.CANCELLED,
     userId: 1,
     activityId: 7,
   },
   {
     date: new Date("2025-07-18"),
     time: "10:30",
-    status: "cancelled",
+    status: turnStatus.CANCELLED,
     userId: 1,
     activityId: 8,
   },

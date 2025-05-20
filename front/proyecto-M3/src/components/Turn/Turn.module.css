@@ -30,13 +30,6 @@
   gap: 8px;
 }
 
-.card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #fffefc; /* un tono un poco más cálido y luminoso */
-}
-
 .status {
   display: flex;
   align-items: center;

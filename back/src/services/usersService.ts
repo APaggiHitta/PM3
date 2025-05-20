@@ -7,20 +7,21 @@ export const getUsersService = async (): Promise<User[]> => {
   const users = await UserModel.find({
     relations: {
       turns: true,
-      // credential: true,
     },
   });
   return users;
 };
 
-export const getUsersByIdService = async (id: number): Promise<User | null> => {
+export const getUserByIdService = async (id: number): Promise<User | null> => {
   const user = await UserModel.findOne({
     where: { id },
     relations: {
       turns: true,
-      // credential: true,
     },
   });
+
+  if (!user) throw new Error("No existe el usuario");
+
   return user;
 };
 
@@ -46,8 +47,6 @@ export const createUserService = async (userData: UserDto): Promise<User> => {
     password: userData.password,
     user: newUser,
   });
-
-  newUser.credential = credential;
 
   return newUser;
 };
