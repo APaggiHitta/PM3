@@ -55,7 +55,7 @@ const preloadTurns: ITurn[] = [
   {
     date: new Date("2025-06-12"),
     time: "12:30",
-    status: turnStatus.ACTIVE,
+    status: turnStatus.CANCELLED,
     userId: 1,
     activityId: 2,
   },
