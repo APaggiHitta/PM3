@@ -3,15 +3,12 @@ import { Credential } from "../entities/Credential";
 import { Turn } from "../entities/Turn";
 import { User } from "../entities/User";
 import { Activity } from "../entities/Activity";
+import { DATABASE_URL } from "./envs";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
-  port: 5432,
-  username: "postgres",
-  password: "12345",
-  database: "amazing_amazonas_db",
-  dropSchema: true,
+  url: DATABASE_URL,
+  dropSchema: false,
   synchronize: true,
   logging: false,
   entities: [User, Turn, Credential, Activity],
