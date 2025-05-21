@@ -65,8 +65,17 @@ const AddTurn = ({ refreshTurns }) => {
 
     if (!isFormValid || !user) return;
 
+    const [year, month, day] = turnData.date.split("-").map(Number);
+    const localDate = new Date(year, month - 1, day);
+    const isoLocalDate = new Date(
+      localDate.getFullYear(),
+      localDate.getMonth(),
+      localDate.getDate(),
+      12
+    ).toISOString();
+
     const turnPayload = {
-      date: turnData.date,
+      date: isoLocalDate,
       time: turnData.time,
       userId: user.id,
       activity_id: Number(turnData.activity),
