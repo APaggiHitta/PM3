@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createCredentialsService = void 0;
+exports.validateCredentialsService = exports.createCredentialsService = void 0;
 var data_source_1 = require("../config/data-source");
 var createCredentialsService = function (data) { return __awaiter(void 0, void 0, void 0, function () {
     var credential;
@@ -45,18 +45,28 @@ var createCredentialsService = function (data) { return __awaiter(void 0, void 0
             case 0:
                 credential = data_source_1.CredentialModel.create(data);
                 return [4 /*yield*/, data_source_1.CredentialModel.save(credential)];
-            case 1: return [2 /*return*/, _a.sent()];
+            case 1: return [2 /*return*/, (_a.sent()).id];
         }
     });
 }); };
 exports.createCredentialsService = createCredentialsService;
-// export const validateCredentialsService = async (
-//   credentialData: CredentialDto
-// ): Promise<number | null> => {
-//   const existing = credentials.find(
-//     (cred) =>
-//       cred.userName === credentialData.userName &&
-//       cred.password === credentialData.password
-//   );
-//   return existing ? existing.id : null;
-// };
+var validateCredentialsService = function (data) { return __awaiter(void 0, void 0, void 0, function () {
+    var username, password, credential;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                username = data.username, password = data.password;
+                return [4 /*yield*/, data_source_1.CredentialModel.findOne({
+                        where: { username: username },
+                    })];
+            case 1:
+                credential = _a.sent();
+                if (!credential)
+                    throw new Error("No existe el nombre de usuario");
+                if (credential.password !== password)
+                    throw new Error("La contraseña es incorrecta");
+                return [2 /*return*/, credential.user.id];
+        }
+    });
+}); };
+exports.validateCredentialsService = validateCredentialsService;

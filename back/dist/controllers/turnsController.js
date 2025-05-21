@@ -39,23 +39,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.cancelTurnController = exports.createTurnController = exports.getTurnsByUserIdController = exports.getTurnsByIdController = exports.getTurnsController = void 0;
 var turnsService_1 = require("../services/turnsService");
 var getTurnsController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var turns;
+    var turns, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, turnsService_1.getTurnsService)()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, (0, turnsService_1.getTurnsService)()];
             case 1:
                 turns = _a.sent();
-                res.status(200).json(turns);
-                return [2 /*return*/];
+                res.status(200).json({
+                    success: true,
+                    turns: turns,
+                });
+                return [3 /*break*/, 3];
+            case 2:
+                error_1 = _a.sent();
+                res.status(500).json({
+                    success: false,
+                    message: error_1.message,
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.getTurnsController = getTurnsController;
 var getTurnsByIdController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var turnId, turn;
+    var turnId, turn, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 turnId = Number(req.params.id);
                 if (isNaN(turnId)) {
                     res.status(400).json({ message: "Invalid turn ID" });
@@ -68,17 +82,29 @@ var getTurnsByIdController = function (req, res) { return __awaiter(void 0, void
                     res.status(404).json({ message: "Turn not found" });
                     return [2 /*return*/];
                 }
-                res.status(200).json(turn);
-                return [2 /*return*/];
+                res.status(200).json({
+                    success: true,
+                    turn: turn,
+                });
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                res.status(500).json({
+                    success: false,
+                    message: error_2.message,
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.getTurnsByIdController = getTurnsByIdController;
 var getTurnsByUserIdController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var userId, turns;
+    var userId, turns, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 userId = Number(req.params.id);
                 if (isNaN(userId)) {
                     res.status(400).json({ message: "Invalid user ID" });
@@ -92,13 +118,21 @@ var getTurnsByUserIdController = function (req, res) { return __awaiter(void 0, 
                     return [2 /*return*/];
                 }
                 res.status(200).json(turns);
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_3 = _a.sent();
+                res.status(500).json({
+                    success: false,
+                    message: error_3.message,
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
 exports.getTurnsByUserIdController = getTurnsByUserIdController;
 var createTurnController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var newTurn, error_1;
+    var newTurn, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -111,9 +145,10 @@ var createTurnController = function (req, res) { return __awaiter(void 0, void 0
                 });
                 return [3 /*break*/, 3];
             case 2:
-                error_1 = _a.sent();
-                res.status(400).json({
-                    message: error_1.message,
+                error_4 = _a.sent();
+                res.status(500).json({
+                    success: false,
+                    message: error_4.message,
                 });
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
@@ -122,28 +157,29 @@ var createTurnController = function (req, res) { return __awaiter(void 0, void 0
 }); };
 exports.createTurnController = createTurnController;
 var cancelTurnController = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var turnId, turn, error_2;
+    var turnId, turn, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
                 turnId = Number(req.params.id);
                 if (isNaN(turnId)) {
                     res.status(400).json({ message: "Invalid turn ID" });
                     return [2 /*return*/];
                 }
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, (0, turnsService_1.cancelTurnService)(turnId)];
-            case 2:
+            case 1:
                 turn = _a.sent();
                 res.status(200).json(turn);
-                return [3 /*break*/, 4];
-            case 3:
-                error_2 = _a.sent();
-                res.status(400).json({ message: error_2.message });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                error_5 = _a.sent();
+                res.status(500).json({
+                    success: false,
+                    message: error_5.message,
+                });
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };

@@ -45,9 +45,13 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.preloadTurnsData = exports.preloadUsersData = exports.preloadActivitiesData = void 0;
 var data_source_1 = require("../config/data-source");
+var ITurn_1 = require("../interfaces/ITurn");
 var preloadActivities = [
     {
         name: "Excursión de pesca",
+    },
+    {
+        name: "Crucero amazónico",
     },
     {
         name: "Rafting",
@@ -74,10 +78,10 @@ var preloadActivities = [
 var preloadUsers = [
     {
         name: "Alvaro Paggi",
-        email: "alvaropaggi@gmail.com",
+        email: "alvaropaggi@mail.com",
         birthdate: new Date("2010-03-12"),
         nDni: 9384938,
-        username: "alvaropaggi@gmail.com",
+        username: "alvaropaggi@mail.com",
         password: "holanda",
     },
 ];
@@ -85,49 +89,49 @@ var preloadTurns = [
     {
         date: new Date("2025-06-12"),
         time: "12:30",
-        status: "active",
+        status: ITurn_1.turnStatus.CANCELLED,
         userId: 1,
         activityId: 2,
     },
     {
         date: new Date("2025-06-13"),
         time: "13:30",
-        status: "cancelled",
+        status: ITurn_1.turnStatus.ACTIVE,
         userId: 1,
         activityId: 1,
     },
     {
         date: new Date("2025-06-20"),
         time: "14:30",
-        status: "active",
+        status: ITurn_1.turnStatus.CANCELLED,
         userId: 1,
         activityId: 4,
     },
     {
         date: new Date("2025-07-18"),
         time: "10:30",
-        status: "cancelled",
+        status: ITurn_1.turnStatus.ACTIVE,
         userId: 1,
         activityId: 5,
     },
     {
-        date: new Date("2025-07-18"),
+        date: new Date("2025-05-18"),
         time: "10:30",
-        status: "cancelled",
+        status: ITurn_1.turnStatus.ACTIVE,
         userId: 1,
         activityId: 6,
     },
     {
         date: new Date("2025-07-18"),
         time: "10:30",
-        status: "active",
+        status: ITurn_1.turnStatus.CANCELLED,
         userId: 1,
         activityId: 7,
     },
     {
         date: new Date("2025-07-18"),
         time: "10:30",
-        status: "cancelled",
+        status: ITurn_1.turnStatus.CANCELLED,
         userId: 1,
         activityId: 8,
     },

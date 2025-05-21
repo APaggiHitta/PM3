@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.userLoginService = exports.createUserService = exports.getUsersByIdService = exports.getUsersService = void 0;
+exports.userLoginService = exports.createUserService = exports.getUserByIdService = exports.getUsersService = void 0;
 var credentialsService_1 = require("./credentialsService");
 var data_source_1 = require("../config/data-source");
 var getUsersService = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -46,7 +46,6 @@ var getUsersService = function () { return __awaiter(void 0, void 0, void 0, fun
             case 0: return [4 /*yield*/, data_source_1.UserModel.find({
                     relations: {
                         turns: true,
-                        // credential: true,
                     },
                 })];
             case 1:
@@ -56,7 +55,7 @@ var getUsersService = function () { return __awaiter(void 0, void 0, void 0, fun
     });
 }); };
 exports.getUsersService = getUsersService;
-var getUsersByIdService = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+var getUserByIdService = function (id) { return __awaiter(void 0, void 0, void 0, function () {
     var user;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -64,21 +63,27 @@ var getUsersByIdService = function (id) { return __awaiter(void 0, void 0, void 
                     where: { id: id },
                     relations: {
                         turns: true,
-                        // credential: true,
                     },
                 })];
             case 1:
                 user = _a.sent();
+                if (!user)
+                    throw new Error("No existe el usuario");
                 return [2 /*return*/, user];
         }
     });
 }); };
-exports.getUsersByIdService = getUsersByIdService;
+exports.getUserByIdService = getUserByIdService;
 var createUserService = function (userData) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, newUser, credential;
+    var existingUser, user, newUser, credential;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
+            case 0: return [4 /*yield*/, data_source_1.UserModel.findOneBy({ email: userData.email })];
+            case 1:
+                existingUser = _a.sent();
+                if (existingUser) {
+                    throw new Error("Ya existe un usuario con este mail registrado!");
+                }
                 user = data_source_1.UserModel.create({
                     name: userData.name,
                     email: userData.email,
@@ -87,16 +92,15 @@ var createUserService = function (userData) { return __awaiter(void 0, void 0, v
                     photo: userData.photo,
                 });
                 return [4 /*yield*/, data_source_1.UserModel.save(user)];
-            case 1:
+            case 2:
                 newUser = _a.sent();
                 return [4 /*yield*/, (0, credentialsService_1.createCredentialsService)({
                         username: userData.username,
                         password: userData.password,
                         user: newUser,
                     })];
-            case 2:
+            case 3:
                 credential = _a.sent();
-                newUser.credential = credential;
                 return [2 /*return*/, newUser];
         }
     });

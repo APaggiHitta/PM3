@@ -6,11 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.uploadPhoto = void 0;
 var multer_1 = __importDefault(require("multer"));
 var path_1 = __importDefault(require("path"));
-var fs_1 = __importDefault(require("fs"));
 var uploadPath = path_1.default.join(__dirname, "../../uploads");
-if (!fs_1.default.existsSync(uploadPath)) {
-    fs_1.default.mkdirSync(uploadPath);
-}
 var storage = multer_1.default.diskStorage({
     destination: function (req, file, cb) {
         cb(null, uploadPath);
