@@ -35,9 +35,28 @@ const Turns = () => {
   }, [fetchTurns]);
 
   const filteredTurns = turns.filter((turn) => {
+    const [year, month, day] = turn.date.split("-").map(Number);
+    const activityDate = new Date(year, month - 1, day);
+
+    const today = new Date();
+    const todayAtMidnight = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
+
     if (filter === "Todas") return true;
-    if (filter === "Activas") return turn.status === "active";
+
+    if (filter === "Activas") {
+      return turn.status === "active" && activityDate >= todayAtMidnight;
+    }
+
     if (filter === "Canceladas") return turn.status === "cancelled";
+
+    if (filter === "Realizadas") {
+      return turn.status === "active" && activityDate < todayAtMidnight;
+    }
+
     return true;
   });
 
@@ -55,7 +74,7 @@ const Turns = () => {
       ) : (
         <>
           <div className={styles.filterContainer}>
-            {["Todas", "Activas", "Canceladas"].map((type) => (
+            {["Todas", "Activas", "Canceladas", "Realizadas"].map((type) => (
               <button
                 key={type}
                 onClick={() => setFilter(type)}

@@ -50,15 +50,17 @@ const Turn = ({ id, date, description, time, status }) => {
   const [year, month, day] = date.split("-").map(Number);
   const activityAtMidnight = new Date(year, month - 1, day); // mes empieza en 0
 
-  // Calcular diferencia en días
   const timeDiff = activityAtMidnight - todayAtMidnight;
   const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
   let dateMessage = "";
   let Icon = null;
 
-  if (dayDiff < 0) {
-    dateMessage = "Actividad realizada";
+  if (status !== "active") {
+    dateMessage = "Actividad cancelada";
+    Icon = FaTimesCircle;
+  } else if (dayDiff < 0) {
+    dateMessage = "Actividad ya realizada";
     Icon = FaCheckDouble;
   } else if (dayDiff === 0) {
     dateMessage = "¡Hoy es tu aventura!";
@@ -78,23 +80,33 @@ const Turn = ({ id, date, description, time, status }) => {
         backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.92), rgba(236, 141, 36, 0.6)), url(${randomImage})`,
       }}
     >
-      <h2>{description}</h2>
+      <h2 className={styles.turnTitle}>{description}</h2>
+
       <h3>
         <FaCalendarAlt /> {date}
       </h3>
       <p className={styles.dateMessage}>
         <Icon /> {dateMessage}
       </p>
+
       <p>
         <FaClock /> {time}
       </p>
 
       <p
         className={`${styles.status} ${
-          status === "active" ? styles.active : styles.cancelled
+          dayDiff < 0
+            ? styles.realizada
+            : status === "active"
+            ? styles.active
+            : styles.cancelled
         }`}
       >
-        {status === "active" ? (
+        {dayDiff < 0 ? (
+          <>
+            <FaCheckCircle /> <span>Realizada</span>
+          </>
+        ) : status === "active" ? (
           <>
             <FaCheckCircle /> <span>Activo</span>
           </>
@@ -107,7 +119,7 @@ const Turn = ({ id, date, description, time, status }) => {
 
       <button
         className={`${styles.cancelButton} ${
-          status !== "active" ? styles.hidden : ""
+          status !== "active" || dayDiff < 0 ? styles.hidden : ""
         }`}
         onClick={openModal}
       >
