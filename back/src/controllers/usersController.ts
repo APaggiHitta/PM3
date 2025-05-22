@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
 
+import sharp from "sharp";
+import fs from "fs";
+import path from "path";
+
 import {
   getUsersService,
   getUserByIdService,
@@ -48,11 +52,26 @@ export const getUserByIdController = async (req: Request, res: Response) => {
 
 export const createUserController = async (req: Request, res: Response) => {
   try {
-    const photoFilename = req.file ? req.file.filename : undefined;
+    let processedFilename: string | undefined;
+
+    if (req.file) {
+      const originalPath = req.file.path;
+      processedFilename = `profile-${Date.now()}.jpeg`;
+      const outputDir = path.join(__dirname, "../../uploads");
+      const outputPath = path.join(outputDir, processedFilename);
+
+      await sharp(originalPath)
+        .resize(300, 300)
+        .toFormat("jpeg")
+        .jpeg({ quality: 80 })
+        .toFile(outputPath);
+
+      fs.unlinkSync(originalPath);
+    }
 
     const newUser: User = await createUserService({
       ...req.body,
-      photo: photoFilename,
+      photo: processedFilename,
     });
 
     res.status(201).json({ message: "Usuario creado correctamente" });
